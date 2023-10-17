@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.mobdeve.s13.group8.nomadsapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.mobdeve.s13.group8.nomadsapp"

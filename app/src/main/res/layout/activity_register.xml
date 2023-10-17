@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E7E7E7"
+    tools:context=".Register">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/nomads_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/itim"
+        android:text="Nomad's"
+        android:textColor="#415C87"
+        android:textSize="34sp"
+        android:typeface="sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <EditText
+            android:id="@+id/fullNameIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:background="@drawable/rounded_edittext_bg"
+            android:ems="10"
+            android:fontFamily="@font/itim"
+            android:hint="Full Name"
+            android:inputType="text"
+            android:padding="8sp" />
+
+        <EditText
+            android:id="@+id/emailIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:background="@drawable/rounded_edittext_bg"
+            android:ems="10"
+            android:fontFamily="@font/itim"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="8sp" />
+
+        <EditText
+            android:id="@+id/usernameIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:background="@drawable/rounded_edittext_bg"
+            android:ems="10"
+            android:fontFamily="@font/itim"
+            android:hint="Username"
+            android:inputType="text"
+            android:padding="8sp" />
+
+        <EditText
+            android:id="@+id/passwordIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext_bg"
+            android:ems="10"
+            android:fontFamily="@font/itim"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="8sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/itim"
+        android:text="Register"
+        android:backgroundTint="#657B9E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/redirectLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/itim"
+        android:text="Already have an account?  Log In"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
