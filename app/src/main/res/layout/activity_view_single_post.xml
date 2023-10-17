@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewSinglePost">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="120sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sample_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postBodyTv"
+        app:shapeAppearanceOverlay="@style/rounddpsmall" />
+
+    <ImageButton
+        android:id="@+id/backImageBtn2"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backImageBtn4"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="fitCenter"
+        android:src="@drawable/like_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backImageBtn5"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="fitCenter"
+        android:src="@drawable/comment"
+        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn4"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
+
+    <ImageButton
+        android:id="@+id/menuBtn"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="centerInside"
+        android:src="@drawable/kebab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userIv"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/user3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backImageBtn2"
+        app:shapeAppearanceOverlay="@style/rounddp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/itim"
+        android:text="TextView"
+        android:textColor="#737373"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userIv" />
+
+    <TextView
+        android:id="@+id/postBodyTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/itim"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="left"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/userIv"
+        app:layout_constraintStart_toEndOf="@+id/userIv"
+        app:layout_constraintTop_toTopOf="@+id/userIv">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:text="TextView"
+            android:textColor="#737373" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/linear_layout_rounded"
+        android:orientation="vertical"
+        android:padding="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/pin" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="10"
+                android:fontFamily="@font/itim"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/itim"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/itim"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn4"
+        app:layout_constraintStart_toEndOf="@+id/backImageBtn4"
+        app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/itim"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn5"
+        app:layout_constraintStart_toEndOf="@+id/backImageBtn5"
+        app:layout_constraintTop_toTopOf="@+id/backImageBtn5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
