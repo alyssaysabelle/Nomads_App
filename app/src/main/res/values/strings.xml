@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Nomad\'s App</string>
+    <string name="app_name">Nomad\'s</string>
+    <string-array name="search">
+        <item>Users</item>
+        <item>Posts</item>
+    </string-array>
 </resources>
