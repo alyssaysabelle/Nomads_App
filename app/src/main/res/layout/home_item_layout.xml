@@ -14,7 +14,7 @@
         android:src="@drawable/user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/rounddphome" />
+        app:shapeAppearanceOverlay="@style/rounddphomenew"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/postIv"
@@ -69,8 +69,7 @@
             android:layout_weight="1"
             android:scaleType="fitStart"
             android:src="@drawable/like_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/likesTv"

@@ -25,4 +25,9 @@
         <item name="color"> @color/white</item>
     </style>
 
+    <style name="rounddphomenew" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize"> 28dp</item>
+        <item name="color"> @color/white</item>
+    </style>
 </resources>
