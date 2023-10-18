@@ -22,16 +22,6 @@
             android:textColor="#292929"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/searchPostsTags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/itim"
-            android:text="Tags: itinerary, hotel recommendations, sight-seeing, shopping"
-            android:textColor="#17325D"
-            android:textSize="14sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

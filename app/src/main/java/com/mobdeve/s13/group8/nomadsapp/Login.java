@@ -59,6 +59,8 @@ public class Login extends AppCompatActivity {
         viewBinding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // comment out password checking for easier checking
+                /*
                 String usernameInput = viewBinding.usernameLogin.getText().toString();
                 String passwordInput = viewBinding.passwordLogin.getText().toString();
 
@@ -84,6 +86,10 @@ public class Login extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                 }
+
+                 */
+                Intent intent = new Intent(Login.this, HomeScreen.class);
+                startActivity(intent);
             }
         });
     }
