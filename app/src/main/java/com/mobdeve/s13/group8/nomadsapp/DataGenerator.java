@@ -5,9 +5,9 @@ import java.util.Collections;
 
 // contains dummy data
 public class DataGenerator {
-    private static final User user1 = new User("Alyssa Meneses", "alyssaysabelle", "password", R.drawable.user1);
-    private static final User user2 = new User("Stacy Kalaw", "stacyselena", "password", R.drawable.user2);
-    private static final User user3 = new User("Richard Sy", "richard", "passwoord", R.drawable.user3);
+    private static final User user1 = new User("Alyssa Meneses", "alyssaysabelle", "password", "email", R.drawable.user1);
+    private static final User user2 = new User("Stacy Kalaw", "stacyselena", "password", "email", R.drawable.user2);
+    private static final User user3 = new User("Richard Sy", "richard", "passwoord", "email", R.drawable.user3);
 
     private static Post post1 = new Post(user1, "Manila, Philippines", "sample", "sample sample sample sample sample", R.drawable.sample_bg, new CustomDate(2023, 10, 10), 123);
     private static Post post2 = new Post(user2, "Baguio, Philippines", "gumana ka pls", "ayoko na gumawa ksjdkjsakdjajkdlja", R.drawable.sample_bg, new CustomDate(2023, 9, 9), 456);

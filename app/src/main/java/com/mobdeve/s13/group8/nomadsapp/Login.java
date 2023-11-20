@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityLoginBinding;
 
 import java.util.ArrayList;
@@ -20,9 +23,6 @@ public class Login extends AppCompatActivity {
     private TextView username;
     private TextView password;
     private User currentUser;
-
-    // tentative
-    private ArrayList<User> userlist = DataGenerator.userData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,51 +56,50 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.passwordLogin);
 
         // login button
-        viewBinding.loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // comment out password checking for easier checking
-                /*
-                String usernameInput = viewBinding.usernameLogin.getText().toString();
-                String passwordInput = viewBinding.passwordLogin.getText().toString();
+        viewBinding.loginBtn.setOnClickListener(view -> {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference usersRef = db.collection(MyFirestoreReferences.USERS_COLLECTION);
 
-                if(!usernameInput.isEmpty() && !passwordInput.isEmpty()) {
-                    User user = findUser(userlist, usernameInput);
-                    if(user != null && user.getPassword().equals(passwordInput)){
-                        currentUser = user;
-                        Intent intent = new Intent(Login.this, HomeScreen.class);
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(
-                                Login.this,
-                                "Invalid username and/or password.",
-                                Toast.LENGTH_LONG
-                        ).show();
-                    }
-                }
-                else {
-                    Toast.makeText(
-                            Login.this,
-                            "Please enter your username and password.",
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
+            // Get username and password
+            String usernameInput = viewBinding.usernameLogin.getText().toString();
+            String passwordInput = viewBinding.passwordLogin.getText().toString();
 
-                 */
-                Intent intent = new Intent(Login.this, HomeScreen.class);
-                startActivity(intent);
-            }
+            // Query for checking username and password
+            usersRef.whereEqualTo(MyFirestoreReferences.USERNAME_FIELD, usernameInput)
+                    .whereEqualTo(MyFirestoreReferences.PASSWORD_FIELD, passwordInput)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            // Username or password is incorrect
+                            Toast.makeText(Login.this, "Username or password is incorrect", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Username and password are correct, proceed to HomeScreen
+                        // Get the current user's data
+                        ArrayList<User> users = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            users.add(document.toObject(User.class));
+                        }
+
+                        // Get the current user based on username
+                        for (User user : users) {
+                            if (user.getUsername().equals(usernameInput)) {
+                                currentUser = user;
+
+                                // Pass current user to intent
+                                Intent intent = new Intent(Login.this, HomeScreen.class);
+                                intent.putExtra(IntentKeys.USERNAME.name(), currentUser.getUsername());
+                                startActivity(intent);
+                                return; // Exit the loop once the user is found
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(Login.this, "Error checking username and password: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
-    }
 
-    // find user
-    public User findUser(ArrayList<User> userlist, String username) {
-        for (User user : userlist) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+
     }
 }
