@@ -141,8 +141,8 @@ public class CreatePost extends AppCompatActivity {
 
                     // Get the download URL from the uploaded image
                     riverRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        // Update the user's profile picture URL in Firestore
-                        updateUserProfilePicture(uri.toString());
+
+
                     });
                 })
                 .addOnFailureListener(e -> {
@@ -154,21 +154,7 @@ public class CreatePost extends AppCompatActivity {
                     pd.setMessage("Percentage: " + (int) progressPercent + "%");
                 });
     }
-
-    private void updateUserProfilePicture(String imageUrl) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        User currentUser = (User) getIntent().getSerializableExtra("currentUser");
-
-        // Update the 'profilePictureUrl' field in the user document
-        db.collection("Users").document(currentUser.getUsername())
-                .update("imageId", imageUrl)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d("ViewProfile", "User profile picture URL updated successfully");
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("ViewProfile", "Error updating user profile picture URL", e);
-                });
-    }
+    
 
     private String getFileNameFromUri(Uri uri) {
         String result = null;
