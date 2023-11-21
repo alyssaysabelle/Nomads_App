@@ -120,7 +120,7 @@
         android:id="@+id/file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:text="image"
         android:textColor="#657B9D"
         app:layout_constraintEnd_toStartOf="@+id/postBtn"
