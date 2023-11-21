@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityHomeScreenBinding;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityLoginBinding;
 
@@ -17,6 +21,7 @@ public class HomeScreen extends AppCompatActivity {
 
     private ArrayList<Post> posts = DataGenerator.postsData();
     private RecyclerView homeRecyclerView;
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +29,21 @@ public class HomeScreen extends AppCompatActivity {
 
         ActivityHomeScreenBinding viewBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(viewBinding.getRoot());
+
+        // get current user
+        String username = getIntent().getStringExtra(String.valueOf(IntentKeys.USERNAME));
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = db.collection(MyFirestoreReferences.USERS_COLLECTION);
+
+        usersRef.whereEqualTo(MyFirestoreReferences.USERNAME_FIELD, username).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    currentUser = document.toObject(User.class);
+                }
+            }
+        });
+
 
         // recycler view
         this.homeRecyclerView = findViewById(R.id.homeRv);
@@ -35,7 +55,9 @@ public class HomeScreen extends AppCompatActivity {
         viewBinding.userProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // pass current user to view profile
                 Intent intent = new Intent(HomeScreen.this, ViewProfile.class);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             }
         });
@@ -54,6 +76,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeScreen.this, CreatePost.class);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             }
         });
