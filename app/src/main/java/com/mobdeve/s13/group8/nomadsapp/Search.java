@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class Search extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private String category;
-    private ArrayList<Post> posts = DataGenerator.postsData();
-    private ArrayList<User> users = DataGenerator.userData();
+    private ArrayList<Post> posts = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
     private RecyclerView searchPostRecyclerView;
     private RecyclerView searchUserRecyclerView;
 

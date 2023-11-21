@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Comments extends AppCompatActivity {
 
-    private ArrayList<Comment> comments = DataGenerator.commentData();
+    private ArrayList<Comment> comments = new ArrayList<>();
     private RecyclerView commentRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

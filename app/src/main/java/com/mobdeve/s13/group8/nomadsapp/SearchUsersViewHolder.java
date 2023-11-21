@@ -1,5 +1,6 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ public class SearchUsersViewHolder extends RecyclerView.ViewHolder {
         }
 
     public void bindData(User user){
-            this.profile.setImageResource(user.getImageId());
+            this.profile.setImageURI(Uri.parse(user.getImageId()));
             this.username.setText(user.getUsername());
             //this.followers.setText(post.getUser().getFollowers());
         }

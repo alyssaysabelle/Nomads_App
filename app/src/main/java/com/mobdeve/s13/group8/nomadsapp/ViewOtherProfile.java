@@ -15,7 +15,7 @@ import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityViewProfileBinding;
 import java.util.ArrayList;
 
 public class ViewOtherProfile extends AppCompatActivity {
-    private ArrayList<Post> posts = DataGenerator.postsData();
+    private ArrayList<Post> posts = new ArrayList<>();
     private RecyclerView otherProfileRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

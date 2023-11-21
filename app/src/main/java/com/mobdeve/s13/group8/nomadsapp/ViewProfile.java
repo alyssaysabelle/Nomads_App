@@ -27,6 +27,7 @@ import com.mobdeve.s13.group8.nomadsapp.databinding.ActivitySearchBinding;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityViewProfileBinding;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,16 +47,17 @@ public class ViewProfile extends AppCompatActivity {
         //setContentView(R.layout.activity_view_profile);
         ActivityViewProfileBinding viewBinding = ActivityViewProfileBinding.inflate(getLayoutInflater());
         setContentView(viewBinding.getRoot());
-        profilePic= findViewById(R.id.otherProfilePicture);
-        storage= FirebaseStorage.getInstance();
-        storageReference=storage.getReference();
+        profilePic = findViewById(R.id.otherProfilePicture);
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
-       // ActivityViewProfileBinding viewBinding = ActivityViewProfileBinding.inflate(getLayoutInflater());
+        //ActivityViewProfileBinding viewBinding = ActivityViewProfileBinding.inflate(getLayoutInflater());
         //setContentView(viewBinding.getRoot());
 
         User currentUser = (User) getIntent().getSerializableExtra("currentUser");
         viewBinding.ownUsernameTv.setText(currentUser.getUsername());
-
+        // profilePic.setImageURI(Uri.parse(currentUser.getImageId()));
+        Picasso.get().load(Uri.parse(currentUser.getImageId())).into(profilePic);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,43 +134,55 @@ public class ViewProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
-            imageUri= data.getData();
+        if(requestCode == 1 && resultCode == RESULT_OK && data!=null && data.getData()!=null){
+            imageUri = data.getData();
             profilePic.setImageURI(imageUri);
             uploadPicture();
         }
     }
 
     private void uploadPicture() {
-
-        final ProgressDialog pd=new ProgressDialog(this);
+        final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading...");
         pd.show();
 
-        final String randomKey= UUID.randomUUID().toString();
-        StorageReference riverRef= storageReference.child("images/"+randomKey);
+        final String randomKey = UUID.randomUUID().toString();
+        StorageReference riverRef = storageReference.child("images/" + randomKey);
 
         riverRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        pd.dismiss();
-                        Snackbar.make(findViewById(android.R.id.content),"Image Uploaded.", Snackbar.LENGTH_LONG).show();
-                    }
+                .addOnSuccessListener(taskSnapshot -> {
+                    pd.dismiss();
+                    Snackbar.make(findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
+
+                    // Get the download URL from the uploaded image
+                    riverRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        // Update the user's profile picture URL in Firestore
+                        updateUserProfilePicture(uri.toString());
+                    });
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(getApplicationContext(), "Failed to Upload", Toast.LENGTH_LONG).show();
-                    }
+                .addOnFailureListener(e -> {
+                    pd.dismiss();
+                    Toast.makeText(getApplicationContext(), "Failed to Upload", Toast.LENGTH_LONG).show();
                 })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent= (100.00* snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                        pd.setMessage("Percentage: " + (int) progressPercent + "%");
-                    }
+                .addOnProgressListener(snapshot -> {
+                    double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                    pd.setMessage("Percentage: " + (int) progressPercent + "%");
                 });
     }
+
+    private void updateUserProfilePicture(String imageUrl) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        User currentUser = (User) getIntent().getSerializableExtra("currentUser");
+
+        // Update the 'profilePictureUrl' field in the user document
+        db.collection("Users").document(currentUser.getUsername())
+                .update("imageId", imageUrl)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("ViewProfile", "User profile picture URL updated successfully");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("ViewProfile", "Error updating user profile picture URL", e);
+                });
+    }
+
 }

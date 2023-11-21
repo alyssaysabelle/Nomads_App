@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class HomeScreen extends AppCompatActivity {
 
-    private ArrayList<Post> posts = DataGenerator.postsData();
+    private ArrayList<Post> posts = new ArrayList<>();
     private RecyclerView homeRecyclerView;
     private User currentUser;
     @Override

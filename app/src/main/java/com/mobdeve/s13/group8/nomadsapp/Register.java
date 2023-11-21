@@ -3,6 +3,7 @@ package com.mobdeve.s13.group8.nomadsapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityRegisterBinding;
+
+import java.net.URI;
+import java.net.URL;
 
 public class Register extends AppCompatActivity {
 
@@ -72,8 +76,9 @@ public class Register extends AppCompatActivity {
                                                 viewBinding.usernameIn.getText().toString(),
                                                 viewBinding.passwordIn.getText().toString(),
                                                 viewBinding.emailIn.getText().toString(),
-                                                R.drawable.user_profile
-                                        );
+                                                // set default imageUri
+                                                "android.resource://com.mobdeve.s13.group8.nomadsapp/drawable/user_profile"
+                                                );
                                         Toast.makeText(Register.this, viewBinding.emailIn.getText().toString(), Toast.LENGTH_SHORT).show();
                                         // Add the user to the database
                                         db.collection("Users").document(viewBinding.usernameIn.getText().toString())

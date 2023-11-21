@@ -1,5 +1,7 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,13 +10,13 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email;
-    private int imageId;
+    private String imageId;
     private ArrayList<User> followers;
 
     public User() {
     }
 
-    public User(String fullname, String username, String password, String email, int imageId){
+    public User(String fullname, String username, String password, String email, String imageId){
         this.fullname = fullname;
         this.username = username;
         this.password = password;
@@ -34,7 +36,7 @@ public class User implements Serializable {
         return password;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
@@ -54,7 +56,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 

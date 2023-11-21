@@ -1,5 +1,6 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
         comment = itemView.findViewById(R.id.commentTv);
     }
     public void bindData(Comment comment){
-        this.image.setImageResource(comment.getUser().getImageId());
+        this.image.setImageURI(Uri.parse(comment.getUser().getImageId()));
         this.username.setText(comment.getUser().getUsername());
         this.comment.setText(comment.getComment());
     }
