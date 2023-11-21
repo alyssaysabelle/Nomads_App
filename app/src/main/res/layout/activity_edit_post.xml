@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".EditPost">
 
+    <ImageButton
+        android:id="@+id/deleteBtn"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="centerInside"
+        android:src="@drawable/delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
