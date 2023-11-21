@@ -56,6 +56,18 @@
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
 
+    <ImageButton
+        android:id="@+id/editBtn"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/transparent_button_bg"
+        android:scaleType="centerInside"
+        android:src="@drawable/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userIv"
         android:layout_width="60sp"
