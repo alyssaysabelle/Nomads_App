@@ -1,11 +1,15 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Post {
+
+    @Exclude
+    private String id;
     private User user;
     private String location;
     private String caption;
@@ -75,5 +79,13 @@ public class Post {
 
     public ArrayList<Comment> getComments(){
         return comments;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 }
