@@ -13,8 +13,9 @@ public class Post {
     private String body;
     private int ImageId;
 
-    private @ServerTimestamp Date timestamp;
-    private CustomDate date;
+    @ServerTimestamp
+    private Date date;
+
     private int likes;
 
     private ArrayList<Comment> comments;
@@ -22,25 +23,25 @@ public class Post {
     public Post(){
 
     }
-    public Post(User user, String location, String caption, Date timestamp){
+
+    public Post(User user, String location, String caption, String body){
         this.user = user;
         this.location = location;
         this.caption = caption;
-        this.timestamp = timestamp;
+        this.body = body;
         this.likes = 0;
     }
 
-    public Post(User user, String location, String caption, String body, int ImageId, CustomDate date, int likes){
+    public Post(User user, String location, String caption, String body, int ImageId, int likes){
         this.user = user;
         this.location = location;
         this.caption = caption;
         this.body = body;
         this.ImageId = ImageId;
-        this.date = date;
         this.likes = likes;
     }
 
-    public CustomDate getDate() {
+    public Date getDate() {
         return date;
     }
 

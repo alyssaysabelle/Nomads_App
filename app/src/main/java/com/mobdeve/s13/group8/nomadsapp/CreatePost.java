@@ -49,11 +49,11 @@ public class CreatePost extends AppCompatActivity {
         viewBinding.postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* TODO: Fix Date */
                 String caption = viewBinding.captionEt.getText().toString();
                 String location = viewBinding.locationEt.getText().toString();
-                if (!caption.isEmpty() && !location.isEmpty()) {
-                    Post post = new Post(currentUser, location, caption, new Date());
+                String body = viewBinding.bodyEt.getText().toString();
+                if (!caption.isEmpty() && !location.isEmpty() && !body.isEmpty()) {
+                    Post post = new Post(currentUser, location, caption, body);
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Posts").add(post)

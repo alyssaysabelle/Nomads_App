@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class HomeViewHolder extends RecyclerView.ViewHolder {
     private ImageView profile;
     private TextView username;
@@ -31,7 +34,9 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         this.location.setText(post.getLocation());
         this.postImage.setImageResource(post.getImageId());
         this.likes.setText(post.getLikes() + "");
-        this.date.setText(post.getDate().toStringFull());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(post.getDate());
+        this.date.setText(formattedDate);
         // change declaration after initializing comments
         this.comments.setText("sample");
     }

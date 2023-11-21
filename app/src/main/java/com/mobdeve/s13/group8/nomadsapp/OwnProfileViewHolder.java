@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class OwnProfileViewHolder extends RecyclerView.ViewHolder {
     private ImageView image;
     private TextView date;
@@ -19,7 +22,9 @@ public class OwnProfileViewHolder extends RecyclerView.ViewHolder {
         caption = itemView.findViewById(R.id.caption);
     }
     public void bindData(Post post){
-        this.date.setText(post.getDate().toStringFull());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(post.getDate());
+        this.date.setText(formattedDate);
         this.image.setImageResource(post.getImageId());
         this.caption.setText(post.getCaption());
         this.location.setText(post.getLocation());
