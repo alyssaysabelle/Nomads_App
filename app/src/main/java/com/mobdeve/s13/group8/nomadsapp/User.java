@@ -1,11 +1,15 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     private String fullname;
     private String username;
     private String password;
     private String email;
     private int imageId;
+    private ArrayList<User> followers;
 
     public User() {
     }
@@ -38,6 +42,10 @@ public class User {
         return email;
     }
 
+    public ArrayList<User> getFollowers() {
+        return followers;
+    }
+
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
@@ -56,5 +64,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void addFollower(User follower) {
+        this.followers.add(follower);
+    }
+
+    public void removeFollower(User follower) {
+        this.followers.remove(follower);
     }
 }

@@ -74,14 +74,14 @@
                 android:paddingLeft="16sp">
 
                 <TextView
-                    android:id="@+id/otherUsernameTv"
+                    android:id="@+id/ownUsernameTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/itim"
                     android:text="username" />
 
                 <TextView
-                    android:id="@+id/otherFollowerTv"
+                    android:id="@+id/ownFollowerTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/itim"
