@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -14,6 +16,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
     private ImageView profile;
     private TextView username;
     private TextView location;
+    private TextView caption;
     private ImageView postImage;
     private TextView likes;
     private TextView comments;
@@ -27,13 +30,15 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         likes = itemView.findViewById(R.id.likesTv);
         comments = itemView.findViewById(R.id.commentsTv);
         date = itemView.findViewById(R.id.dateTv);
+        caption = itemView.findViewById(R.id.captionTv);
     }
     public void bindData(Post post){
-        this.profile.setImageURI(Uri.parse(post.getUser().getImageId()));
+        Picasso.get().load(post.getUser().getImageId()).into(this.profile);
         this.username.setText(post.getUser().getUsername());
         this.location.setText(post.getLocation());
         this.postImage.setImageResource(post.getImageId());
         this.likes.setText(post.getLikes() + "");
+        this.caption.setText(post.getCaption());
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(post.getDate());
         this.date.setText(formattedDate);
