@@ -27,6 +27,6 @@ public class SearchUsersViewHolder extends RecyclerView.ViewHolder {
             if(user.getFollowers() != null)
                 this.followers.setText(user.getFollowers().size() + " followers");
             else
-                this.followers.setText("0 + followers");
+                this.followers.setText("0 followers");
         }
 }
