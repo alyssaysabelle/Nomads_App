@@ -37,7 +37,6 @@ public class ViewSinglePost extends AppCompatActivity {
     private ImageButton commentBtn;
     private boolean isClicked = false;
     private Post post;
-    private ListenerRegistration listenerRegistration;
     private String postId;
 
 
