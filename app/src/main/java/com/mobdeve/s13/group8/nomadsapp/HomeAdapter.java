@@ -1,5 +1,6 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     @Override
     public void onBindViewHolder(HomeViewHolder holder, int position) {
         holder.bindData(posts.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
+                intent.putExtra("postId", posts.get(position).getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
