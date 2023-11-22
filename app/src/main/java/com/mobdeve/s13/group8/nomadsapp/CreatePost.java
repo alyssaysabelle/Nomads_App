@@ -88,6 +88,11 @@ public class CreatePost extends AppCompatActivity {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Posts").add(post)
                             .addOnSuccessListener(documentReference -> {
+                                // set id
+                                String id = documentReference.getId();
+                                post.setId(id);
+                                // update id in db
+                                db.collection("Posts").document(id).update("id", id);
                                 Toast.makeText(CreatePost.this, "Post added successfully", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e -> {
