@@ -65,31 +65,17 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
 
-        /*
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("Posts").get().addOnCompleteListener(task -> {
+        // check if user has posts in db
+        db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (task.getResult().isEmpty()) {
-                    Toast.makeText(ViewProfile.this, "No posts", Toast.LENGTH_SHORT).show();
-                } else {
-                    posts = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Post post = document.toObject(Post.class);
-                        posts.add(post);
-                    }
-                    Toast.makeText(ViewProfile.this, posts.size() + " posts", Toast.LENGTH_SHORT).show();
-
-                    // Update the adapter with the new list of posts
-                    OwnProfileAdapter adapter = new OwnProfileAdapter(posts);
-                    ownProfileRecyclerView.setAdapter(adapter);
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Post post = document.toObject(Post.class);
+                    posts.add(post);
                 }
-            } else {
-                Toast.makeText(ViewProfile.this, "Error getting posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                updateOwnProfileAdapter();
             }
         });
-
-         */
 
         // check if user has followers
         if (currentUser.getFollowers() == null) {
@@ -139,6 +125,12 @@ public class ViewProfile extends AppCompatActivity {
             profilePic.setImageURI(imageUri);
             uploadPicture();
         }
+    }
+
+    private void updateOwnProfileAdapter() {
+        OwnProfileAdapter ownProfileAdapter = new OwnProfileAdapter(posts);
+        ownProfileRecyclerView.setAdapter(ownProfileAdapter);
+        ownProfileAdapter.notifyDataSetChanged();
     }
 
     private void uploadPicture() {
