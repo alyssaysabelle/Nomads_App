@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityCreatePostBinding;
+import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityViewSinglePostBinding;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -31,6 +34,15 @@ public class ViewSinglePost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_single_post);
+        ActivityViewSinglePostBinding viewBinding2 = ActivityViewSinglePostBinding.inflate(getLayoutInflater());
+        setContentView(viewBinding2.getRoot());
+        //set back button
+        viewBinding2.backImageBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         username = findViewById(R.id.postUsernameTv);
         profilePic = findViewById(R.id.userIv);
