@@ -32,7 +32,7 @@ public class CreatePost extends AppCompatActivity {
     private TextView date, file;
     private User currentUser;
     private ImageButton imageBtn;
-    public Uri postUri;
+    public Uri postUri, imageUri;
     private FirebaseStorage postStorage;
     private StorageReference postStorageReference;
 
@@ -93,6 +93,10 @@ public class CreatePost extends AppCompatActivity {
                                 post.setId(id);
                                 // update id in db
                                 db.collection("Posts").document(id).update("id", id);
+                                if(postUri != null){
+                                    post.setImageId(imageUri.toString());
+                                    db.collection("Posts").document(id).update("imageId", imageUri.toString());
+                                }
                                 Toast.makeText(CreatePost.this, "Post added successfully", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e -> {
@@ -146,8 +150,7 @@ public class CreatePost extends AppCompatActivity {
 
                     // Get the download URL from the uploaded image
                     riverRef.getDownloadUrl().addOnSuccessListener(uri -> {
-
-
+                        imageUri = uri;
                     });
                 })
                 .addOnFailureListener(e -> {

@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -25,7 +27,7 @@ public class OwnProfileViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(post.getDate());
         this.date.setText(formattedDate);
-        this.image.setImageResource(post.getImageId());
+        Picasso.get().load(post.getImageId()).into(this.image);
         this.caption.setText(post.getCaption());
         this.location.setText(post.getLocation());
     }

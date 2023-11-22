@@ -15,7 +15,7 @@ public class Post {
     private String caption;
 
     private String body;
-    private int ImageId;
+    private String ImageId;
 
     @ServerTimestamp
     private Date date;
@@ -36,7 +36,7 @@ public class Post {
         this.likes = 0;
     }
 
-    public Post(User user, String location, String caption, String body, int ImageId, int likes){
+    public Post(User user, String location, String caption, String body, String ImageId, int likes){
         this.user = user;
         this.location = location;
         this.caption = caption;
@@ -49,7 +49,7 @@ public class Post {
         return date;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return ImageId;
     }
 
@@ -87,5 +87,9 @@ public class Post {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setImageId(String imageId) {
+        ImageId = imageId;
     }
 }

@@ -4,6 +4,7 @@ public class MyFirestoreReferences {
     public final static String
             USERS_COLLECTION = "Users",
             POSTS_COLLECTION = "Posts",
+            POST_ID_FIELD = "id",
             USERNAME_FIELD = "username",
             FULLNAME_FIELD = "fullname",
             EMAIL_FIELD = "email",

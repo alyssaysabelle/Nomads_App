@@ -7,7 +7,7 @@
     tools:context=".ViewSinglePost">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/postImage"
         android:layout_width="0dp"
         android:layout_height="120sp"
         android:layout_marginStart="24dp"
@@ -53,7 +53,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/comment"
         app:layout_constraintBottom_toBottomOf="@+id/backImageBtn4"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toEndOf="@+id/postLikesTv"
         app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
 
     <ImageButton
@@ -80,7 +80,7 @@
         app:shapeAppearanceOverlay="@style/rounddp" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/postCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -116,14 +116,14 @@
         app:layout_constraintTop_toTopOf="@+id/userIv">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/postUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/itim"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/postFollowers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/itim"
@@ -143,7 +143,7 @@
         android:padding="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
+        app:layout_constraintTop_toBottomOf="@+id/postCaption">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                 app:srcCompat="@drawable/pin" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/postLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -177,7 +177,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/postLikesTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -188,7 +188,7 @@
         app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/postCommentsTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

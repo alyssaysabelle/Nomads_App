@@ -36,7 +36,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         Picasso.get().load(post.getUser().getImageId()).into(this.profile);
         this.username.setText(post.getUser().getUsername());
         this.location.setText(post.getLocation());
-        this.postImage.setImageResource(post.getImageId());
+        Picasso.get().load(post.getImageId()).into(this.postImage);
         this.likes.setText(post.getLikes() + "");
         this.caption.setText(post.getCaption());
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());

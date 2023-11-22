@@ -7,9 +7,9 @@
     tools:context=".ViewSinglePost">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/postImageIv"
         android:layout_width="0dp"
-        android:layout_height="120sp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/backImageBtn4"
+        android:id="@+id/likeImageBtn"
         android:layout_width="30sp"
         android:layout_height="30sp"
         android:layout_marginStart="24dp"
@@ -45,16 +45,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/backImageBtn5"
+        android:id="@+id/commentImageBtn"
         android:layout_width="30sp"
         android:layout_height="30sp"
         android:layout_marginStart="8dp"
         android:background="@drawable/transparent_button_bg"
         android:scaleType="fitCenter"
         android:src="@drawable/comment"
-        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn4"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
+        app:layout_constraintBottom_toBottomOf="@+id/likeImageBtn"
+        app:layout_constraintStart_toEndOf="@+id/postLikesTv"
+        app:layout_constraintTop_toTopOf="@+id/likeImageBtn" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userIv"
@@ -68,7 +68,7 @@
         app:shapeAppearanceOverlay="@style/rounddp" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/postCaptionTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -104,14 +104,14 @@
         app:layout_constraintTop_toTopOf="@+id/userIv">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/postUsernameTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/itim"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/postDateTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/itim"
@@ -131,7 +131,7 @@
         android:padding="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15">
+        app:layout_constraintTop_toBottomOf="@+id/postCaptionTv">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                 app:srcCompat="@drawable/pin" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/postLocationTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -155,35 +155,28 @@
                 android:text="TextView" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/itim"
-            android:text="TextView" />
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/postLikesTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/itim"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn4"
-        app:layout_constraintStart_toEndOf="@+id/backImageBtn4"
-        app:layout_constraintTop_toTopOf="@+id/backImageBtn4" />
+        app:layout_constraintBottom_toBottomOf="@+id/likeImageBtn"
+        app:layout_constraintStart_toEndOf="@+id/likeImageBtn"
+        app:layout_constraintTop_toTopOf="@+id/likeImageBtn" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/postCommentsTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/itim"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/backImageBtn5"
-        app:layout_constraintStart_toEndOf="@+id/backImageBtn5"
-        app:layout_constraintTop_toTopOf="@+id/backImageBtn5" />
+        app:layout_constraintBottom_toBottomOf="@+id/commentImageBtn"
+        app:layout_constraintStart_toEndOf="@+id/commentImageBtn"
+        app:layout_constraintTop_toTopOf="@+id/commentImageBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
