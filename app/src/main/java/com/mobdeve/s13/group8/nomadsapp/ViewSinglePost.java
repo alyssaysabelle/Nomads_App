@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityCreatePostBinding;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityViewSinglePostBinding;
@@ -29,6 +33,13 @@ public class ViewSinglePost extends AppCompatActivity {
     private ImageView ImageId;
     private TextView postLikes;
     private TextView postComments;
+    private ImageButton likeBtn;
+    private ImageButton commentBtn;
+    private boolean isClicked = false;
+    private Post post;
+    private ListenerRegistration listenerRegistration;
+    private String postId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +64,12 @@ public class ViewSinglePost extends AppCompatActivity {
         ImageId = findViewById(R.id.postImageIv);
         postLikes = findViewById(R.id.postLikesTv);
         postComments = findViewById(R.id.postCommentsTv);
+        likeBtn = findViewById(R.id.likeImageBtn);
+        commentBtn = findViewById(R.id.commentImageBtn);
 
         // get data from intent
         Intent intent = getIntent();
-        String postId = intent.getStringExtra("postId");
+        postId = intent.getStringExtra("postId");
 
         // get post from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -65,7 +78,7 @@ public class ViewSinglePost extends AppCompatActivity {
         db.collection(MyFirestoreReferences.POSTS_COLLECTION).whereEqualTo(MyFirestoreReferences.POST_ID_FIELD, postId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Post post = document.toObject(Post.class);
+                    post = document.toObject(Post.class);
                     username.setText(post.getUser().getUsername());
                     Picasso.get().load(post.getUser().getImageId()).into(profilePic);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy HH:mm:ss", Locale.getDefault());
@@ -81,10 +94,39 @@ public class ViewSinglePost extends AppCompatActivity {
                     else
                         postComments.setText(post.getComments().size() + " comments");
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(ViewSinglePost.this, "Error getting post", Toast.LENGTH_SHORT).show();
             }
         });
+
+        viewBinding2.likeImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isClicked = !isClicked;
+
+                if (isClicked) {
+                    view.setBackgroundResource(R.drawable.like_button);
+                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(1));
+                    updateLikeCount(1);
+                } else {
+                    view.setBackgroundResource(R.drawable.not_liked_button);
+                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(-1));
+                    updateLikeCount(-1);
+                }
+            }
+        });
+    }
+
+    private void updateLikeCount(int increment) {
+        FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
+                .document(postId).update("likes", FieldValue.increment(increment))
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        post.setLikes(post.getLikes() + increment);
+                        postLikes.setText(String.valueOf(post.getLikes()));
+                    } else {
+                        Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

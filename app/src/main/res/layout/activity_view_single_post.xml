@@ -40,7 +40,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/transparent_button_bg"
         android:scaleType="fitCenter"
-        android:src="@drawable/like_button"
+        android:src="@drawable/not_liked_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -53,8 +53,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/comment"
         app:layout_constraintBottom_toBottomOf="@+id/likeImageBtn"
-        app:layout_constraintStart_toEndOf="@+id/postLikesTv"
-        app:layout_constraintTop_toTopOf="@+id/likeImageBtn" />
+        app:layout_constraintStart_toEndOf="@+id/postLikesTv" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userIv"
@@ -165,8 +164,7 @@
         android:fontFamily="@font/itim"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/likeImageBtn"
-        app:layout_constraintStart_toEndOf="@+id/likeImageBtn"
-        app:layout_constraintTop_toTopOf="@+id/likeImageBtn" />
+        app:layout_constraintStart_toEndOf="@+id/likeImageBtn" />
 
     <TextView
         android:id="@+id/postCommentsTv"
@@ -176,7 +174,6 @@
         android:fontFamily="@font/itim"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/commentImageBtn"
-        app:layout_constraintStart_toEndOf="@+id/commentImageBtn"
-        app:layout_constraintTop_toTopOf="@+id/commentImageBtn" />
+        app:layout_constraintStart_toEndOf="@+id/commentImageBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

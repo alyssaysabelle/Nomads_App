@@ -92,4 +92,8 @@ public class Post {
     public void setImageId(String imageId) {
         ImageId = imageId;
     }
+
+    public void setLikes(int i) {
+        this.likes = i;
+    }
 }

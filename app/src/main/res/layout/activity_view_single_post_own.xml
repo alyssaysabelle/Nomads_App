@@ -40,7 +40,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/transparent_button_bg"
         android:scaleType="fitCenter"
-        android:src="@drawable/like_button"
+        android:src="@drawable/not_liked_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

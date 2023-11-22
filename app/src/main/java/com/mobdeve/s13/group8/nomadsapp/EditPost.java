@@ -32,6 +32,7 @@ public class EditPost extends AppCompatActivity {
     private FirebaseStorage postStorage;
     private StorageReference postStorageReference;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
