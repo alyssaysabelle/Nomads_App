@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                 intent.putExtra("postId", posts.get(position).getId());
                 intent.putExtra("currentUser", currentUser);
                 v.getContext().startActivity(intent);
+
+                Toast.makeText(v.getContext(), "User " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
             }
         });
     }
