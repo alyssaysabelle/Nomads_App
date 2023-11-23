@@ -30,7 +30,7 @@ public class OwnProfileAdapter extends RecyclerView.Adapter<OwnProfileViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
+                Intent intent = new Intent(v.getContext(), ViewSinglePostOwn.class);
                 intent.putExtra("postId", posts.get(position).getId());
                 v.getContext().startActivity(intent);
             }

@@ -37,6 +37,9 @@
             android:name=".ViewSinglePost"
             android:exported="false" />
         <activity
+            android:name=".ViewSinglePostOwn"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="false" />
         <activity
