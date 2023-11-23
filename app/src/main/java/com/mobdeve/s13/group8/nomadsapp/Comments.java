@@ -43,8 +43,8 @@ public class Comments extends AppCompatActivity {
         ActivityCommentsBinding viewBinding3 = ActivityCommentsBinding.inflate(getLayoutInflater());
         setContentView(viewBinding3.getRoot());
 
-        //set back button
-        commentsBackBtn=findViewById(R.id.commentsBackBtn);
+        // set back button
+        commentsBackBtn = findViewById(R.id.commentsBackBtn);
         commentsBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class Comments extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // query for same post id
+        // query for the same post id
         db.collection(MyFirestoreReferences.POSTS_COLLECTION).whereEqualTo(MyFirestoreReferences.POST_ID_FIELD, postId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 comments.clear();
@@ -78,11 +78,11 @@ public class Comments extends AppCompatActivity {
                     post = document.toObject(Post.class);
 
                     // check if comments is null
-                    if (post.getComments() == null)
+                    if (post.getComments() == null) {
                         commentsCount.setText("0 comments");
-                    else {
-                        commentsCount.setText(post.getComments().size() + " comments");
-                        comments = post.getComments();
+                    } else {
+                        comments.addAll(post.getComments()); // AddAll comments to the local list
+                        commentsCount.setText(comments.size() + " comments");
 
                         CommentAdapter commentAdapter = new CommentAdapter(comments);
                         commentRecyclerView.setAdapter(commentAdapter);
@@ -107,19 +107,19 @@ public class Comments extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     post.addComments(comment);
-                                    commentRecyclerView.getAdapter().notifyItemInserted(comments.size() - 1);
                                     comments.add(comment);
                                     commentsCount.setText(post.getComments().size() + " comments");
+                                    commentRecyclerView.getAdapter().notifyItemInserted(comments.size() - 1);
                                 } else {
                                     Toast.makeText(Comments.this, "Error adding comment", Toast.LENGTH_SHORT).show();
                                 }
                             });
                 } else {
-                    // Handle the case where caption or location is empty
+                    // Handle the case where the text is empty
                     Toast.makeText(Comments.this, "Text cannot be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
+
 }

@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class CommentViewHolder extends RecyclerView.ViewHolder{
     private ImageView image;
     private TextView username;
@@ -18,7 +20,7 @@ public class CommentViewHolder extends RecyclerView.ViewHolder{
         comment = itemView.findViewById(R.id.commentTv);
     }
     public void bindData(Comment comment){
-        this.image.setImageURI(Uri.parse(comment.getUser().getImageId()));
+        Picasso.get().load(comment.getUser().getImageId()).into(this.image);
         this.username.setText(comment.getUser().getUsername());
         this.comment.setText(comment.getComment());
     }
