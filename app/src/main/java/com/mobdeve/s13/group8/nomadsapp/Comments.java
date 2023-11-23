@@ -107,9 +107,9 @@ public class Comments extends AppCompatActivity {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     post.addComments(comment);
-                                    comments.add(comment);
                                     commentRecyclerView.getAdapter().notifyItemInserted(comments.size() - 1);
-                                    commentsCount.setText(String.valueOf(post.getComments().size()));
+                                    comments.add(comment);
+                                    commentsCount.setText(post.getComments().size() + " comments");
                                 } else {
                                     Toast.makeText(Comments.this, "Error adding comment", Toast.LENGTH_SHORT).show();
                                 }
