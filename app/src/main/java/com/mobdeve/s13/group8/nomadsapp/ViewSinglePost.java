@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -87,7 +88,11 @@ public class ViewSinglePost extends AppCompatActivity {
                     postCaption.setText(post.getCaption());
                     postLocation.setText(post.getLocation());
                     postBody.setText(post.getBody());
-                    postLikes.setText(String.valueOf(post.getLikes().size()));
+                    // check if likes is null
+                    if (post.getLikes() == null)
+                        postLikes.setText("0 likes");
+                    else
+                        postLikes.setText(String.valueOf(post.getLikes().size()));
                     Picasso.get().load(post.getImageId()).into(ImageId);
                     // check if comments is null
                     if (post.getComments() == null)
