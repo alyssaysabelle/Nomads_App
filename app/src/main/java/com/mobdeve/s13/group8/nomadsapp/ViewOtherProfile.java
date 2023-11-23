@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ViewOtherProfile extends AppCompatActivity {
     private ArrayList<Post> posts = new ArrayList<>();
     private RecyclerView otherProfileRecyclerView;
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class ViewOtherProfile extends AppCompatActivity {
 
         // recycler view
         this.otherProfileRecyclerView = findViewById(R.id.otherProfileRv);
-        this.otherProfileRecyclerView.setAdapter(new OwnProfileAdapter(posts));
+        this.otherProfileRecyclerView.setAdapter(new OwnProfileAdapter(posts, currentUser));
         LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.otherProfileRecyclerView.setLayoutManager(layoutManagerV);
     }

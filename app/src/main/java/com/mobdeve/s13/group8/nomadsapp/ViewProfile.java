@@ -135,7 +135,7 @@ public class ViewProfile extends AppCompatActivity {
 
         // recycler view
         this.ownProfileRecyclerView = findViewById(R.id.ownProfileRv);
-        this.ownProfileRecyclerView.setAdapter(new OwnProfileAdapter(posts));
+        this.ownProfileRecyclerView.setAdapter(new OwnProfileAdapter(posts, currentUser));
         LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.ownProfileRecyclerView.setLayoutManager(layoutManagerV);
     }
@@ -159,7 +159,7 @@ public class ViewProfile extends AppCompatActivity {
     }
 
     private void updateOwnProfileAdapter() {
-        OwnProfileAdapter ownProfileAdapter = new OwnProfileAdapter(posts);
+        OwnProfileAdapter ownProfileAdapter = new OwnProfileAdapter(posts, (User) getIntent().getSerializableExtra("currentUser"));
         ownProfileRecyclerView.setAdapter(ownProfileAdapter);
         ownProfileAdapter.notifyDataSetChanged();
     }

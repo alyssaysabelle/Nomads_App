@@ -1,9 +1,11 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +13,11 @@ import java.util.ArrayList;
 
 public class OwnProfileAdapter extends RecyclerView.Adapter<OwnProfileViewHolder>{
     private ArrayList<Post> posts;
+    private User currentUser;
 
-    public OwnProfileAdapter(ArrayList<Post> data) {
+    public OwnProfileAdapter(ArrayList<Post> data, User user) {
         this.posts = data;
+        this.currentUser = user;
     }
 
     @Override
@@ -24,7 +28,7 @@ public class OwnProfileAdapter extends RecyclerView.Adapter<OwnProfileViewHolder
     }
 
     @Override
-    public void onBindViewHolder(OwnProfileViewHolder holder, int position) {
+    public void onBindViewHolder(OwnProfileViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.bindData(posts.get(position));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +36,10 @@ public class OwnProfileAdapter extends RecyclerView.Adapter<OwnProfileViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewSinglePostOwn.class);
                 intent.putExtra("postId", posts.get(position).getId());
+                intent.putExtra("currentUser", currentUser);
                 v.getContext().startActivity(intent);
+
+                Toast.makeText(v.getContext(), "User " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
             }
         });
     }

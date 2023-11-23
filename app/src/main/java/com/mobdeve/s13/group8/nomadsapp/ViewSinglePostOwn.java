@@ -35,6 +35,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
     private boolean isClicked = false;
     private Post post;
     private String postId;
+    private User currentUser;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class ViewSinglePostOwn extends AppCompatActivity {
         // get data from intent
         Intent intent = getIntent();
         postId = intent.getStringExtra("postId");
-
+        currentUser = (User) getIntent().getSerializableExtra("currentUser");
+        Toast.makeText(this, currentUser.getUsername(), Toast.LENGTH_SHORT).show();
         // get post from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -108,6 +110,16 @@ public class ViewSinglePostOwn extends AppCompatActivity {
                     //db.collection("Posts").document(postId).update("likes", FieldValue.increment(-1));
                     //updateLikeCount(-1);
                 }
+            }
+        });
+
+        viewBinding3.commentImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewSinglePostOwn.this, Comments.class);
+                intent.putExtra("postId", postId);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
             }
         });
     }
