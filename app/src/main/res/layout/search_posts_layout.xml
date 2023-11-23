@@ -40,6 +40,7 @@
                 android:id="@+id/searchPostsProfilePicture"
                 android:layout_width="30sp"
                 android:layout_height="30sp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/user3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

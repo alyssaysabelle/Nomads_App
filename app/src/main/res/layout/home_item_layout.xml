@@ -12,7 +12,7 @@
         android:id="@+id/profileIv"
         android:layout_width="55sp"
         android:layout_height="55sp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:src="@drawable/user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -32,6 +32,7 @@
         android:id="@+id/commentUserImageIv"
         android:layout_width="72sp"
         android:layout_height="72sp"
+        android:scaleType="centerCrop"
         android:src="@drawable/user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

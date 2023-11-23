@@ -17,6 +17,7 @@
             android:layout_width="70sp"
             android:layout_height="70sp"
             android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/user3"
             app:shapeAppearanceOverlay="@style/rounddp" />
 

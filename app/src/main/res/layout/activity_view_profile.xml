@@ -60,11 +60,12 @@
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
-                app:shapeAppearanceOverlay="@style/rounddp"
                 android:id="@+id/otherProfilePicture"
                 android:layout_width="72sp"
                 android:layout_height="72sp"
-                android:src="@drawable/user3" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/user3"
+                app:shapeAppearanceOverlay="@style/rounddp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

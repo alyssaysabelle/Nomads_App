@@ -61,6 +61,7 @@
         android:layout_height="60sp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backImageBtn2"
