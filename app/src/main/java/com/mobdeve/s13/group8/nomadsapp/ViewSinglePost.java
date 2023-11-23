@@ -114,6 +114,15 @@ public class ViewSinglePost extends AppCompatActivity {
                 }
             }
         });
+
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ViewSinglePost.this, Comments.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateLikeCount(int increment) {
