@@ -82,7 +82,7 @@ public class CreatePost extends AppCompatActivity {
                 String caption = viewBinding.captionEt.getText().toString();
                 String location = viewBinding.locationEt.getText().toString();
                 String body = viewBinding.bodyEt.getText().toString();
-                if (!caption.isEmpty() && !location.isEmpty() && !body.isEmpty()) {
+                if (!caption.isEmpty() && !location.isEmpty()) {
                     Post post = new Post(currentUser, location, caption, body);
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
