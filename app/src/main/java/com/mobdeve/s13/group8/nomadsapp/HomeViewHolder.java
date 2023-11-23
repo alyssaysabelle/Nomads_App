@@ -37,7 +37,10 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         this.username.setText(post.getUser().getUsername());
         this.location.setText(post.getLocation());
         Picasso.get().load(post.getImageId()).into(this.postImage);
-        this.likes.setText(post.getLikes() + "");
+        if(post.getLikes() == null)
+            this.likes.setText("0 likes");
+        else
+            this.likes.setText(post.getLikes().size() + " likes");
         this.caption.setText(post.getCaption());
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(post.getDate());
