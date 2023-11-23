@@ -66,12 +66,13 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="80sp"
+            android:layout_width="90sp"
             android:layout_height="40sp"
             android:layout_weight="1"
             android:scaleType="fitStart"
             android:src="@drawable/like_button"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/likesTv"
@@ -81,18 +82,19 @@
             android:fontFamily="@font/itim"
             android:text="TextView"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
             app:layout_constraintEnd_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/imageButton2"
-            android:layout_width="80sp"
+            android:layout_width="110sp"
             android:layout_height="40sp"
             android:layout_weight="1"
             android:scaleType="fitStart"
             android:src="@drawable/comment"
-            app:layout_constraintStart_toEndOf="@+id/imageButton" />
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/commentsTv"

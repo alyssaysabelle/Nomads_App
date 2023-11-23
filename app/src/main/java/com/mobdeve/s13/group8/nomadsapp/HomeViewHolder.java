@@ -45,7 +45,9 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String formattedDate = dateFormat.format(post.getDate());
         this.date.setText(formattedDate);
-        // change declaration after initializing comments
-        this.comments.setText("sample");
+        if(post.getComments() == null)
+            this.comments.setText("0 comments");
+        else
+            this.comments.setText(post.getComments().size() + " comments");
     }
 }
