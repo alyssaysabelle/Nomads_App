@@ -20,7 +20,7 @@ public class Post {
     @ServerTimestamp
     private Date date;
 
-    private int likes;
+    private ArrayList<User> likes;
 
     private ArrayList<Comment> comments;
 
@@ -33,16 +33,14 @@ public class Post {
         this.location = location;
         this.caption = caption;
         this.body = body;
-        this.likes = 0;
     }
 
-    public Post(User user, String location, String caption, String body, String ImageId, int likes){
+    public Post(User user, String location, String caption, String body, String ImageId){
         this.user = user;
         this.location = location;
         this.caption = caption;
         this.body = body;
         this.ImageId = ImageId;
-        this.likes = likes;
     }
 
     public Date getDate() {
@@ -69,8 +67,16 @@ public class Post {
         return location;
     }
 
-    public int getLikes() {
+    public ArrayList<User> getLikes() {
         return likes;
+    }
+
+    public void addLike(User user) {
+        likes.add(user);
+    }
+
+    public void removeLike(User user) {
+        likes.remove(user);
     }
 
     public void addComments(User user, String comment) {
@@ -93,7 +99,4 @@ public class Post {
         ImageId = imageId;
     }
 
-    public void setLikes(int i) {
-        this.likes = i;
-    }
 }

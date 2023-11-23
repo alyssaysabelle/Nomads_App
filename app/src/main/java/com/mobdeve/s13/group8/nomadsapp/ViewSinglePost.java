@@ -121,8 +121,8 @@ public class ViewSinglePost extends AppCompatActivity {
                 .document(postId).update("likes", FieldValue.increment(increment))
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        post.setLikes(post.getLikes() + increment);
-                        postLikes.setText(String.valueOf(post.getLikes()));
+                        //post.setLikes(post.getLikes().size() + increment);
+                        postLikes.setText(String.valueOf(post.getLikes().size()));
                     } else {
                         Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
                     }
