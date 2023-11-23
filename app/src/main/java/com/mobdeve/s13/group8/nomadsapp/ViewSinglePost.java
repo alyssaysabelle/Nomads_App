@@ -38,6 +38,7 @@ public class ViewSinglePost extends AppCompatActivity {
     private boolean isClicked = false;
     private Post post;
     private String postId;
+    private User currentUser;
 
 
     @Override
@@ -69,6 +70,7 @@ public class ViewSinglePost extends AppCompatActivity {
         // get data from intent
         Intent intent = getIntent();
         postId = intent.getStringExtra("postId");
+        currentUser = (User) getIntent().getSerializableExtra("currentUser");
 
         // get post from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -85,17 +87,28 @@ public class ViewSinglePost extends AppCompatActivity {
                     postCaption.setText(post.getCaption());
                     postLocation.setText(post.getLocation());
                     postBody.setText(post.getBody());
-                    postLikes.setText(String.valueOf(post.getLikes()));
+                    postLikes.setText(String.valueOf(post.getLikes().size()));
                     Picasso.get().load(post.getImageId()).into(ImageId);
                     // check if comments is null
                     if (post.getComments() == null)
                         postComments.setText("0 comments");
                     else
                         postComments.setText(post.getComments().size() + " comments");
+
+                    // check if user already liked the post
+                    /*if (post.getLikes().size() > 0) {
+                        for (User user : post.getLikes()) {
+                            if (user.getId().equals(currentUser.getId())) {
+                                likeBtn.setBackgroundResource(R.drawable.like_button);
+                                isClicked = true;
+                            }
+                        }
+                    }*/
                 }
             } else {
                 Toast.makeText(ViewSinglePost.this, "Error getting post", Toast.LENGTH_SHORT).show();
             }
+
         });
 
         viewBinding2.likeImageBtn.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +118,10 @@ public class ViewSinglePost extends AppCompatActivity {
 
                 if (isClicked) {
                     view.setBackgroundResource(R.drawable.like_button);
-                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(1));
-                    updateLikeCount(1);
+                    updateLikeCount(currentUser, true);
                 } else {
                     view.setBackgroundResource(R.drawable.not_liked_button);
-                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(-1));
-                    updateLikeCount(-1);
+                    updateLikeCount(currentUser, false);
                 }
             }
         });
@@ -125,16 +136,30 @@ public class ViewSinglePost extends AppCompatActivity {
         });
     }
 
-    private void updateLikeCount(int increment) {
-        FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
-                .document(postId).update("likes", FieldValue.increment(increment))
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //post.setLikes(post.getLikes().size() + increment);
-                        postLikes.setText(String.valueOf(post.getLikes().size()));
-                    } else {
-                        Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
-                    }
-                });
+    private void updateLikeCount (User user, boolean increment) {
+        if (increment) {
+            FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
+                    .document(postId).update("likes", FieldValue.arrayUnion(user))
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            post.addLike(user);
+                            postLikes.setText(String.valueOf(post.getLikes().size()));
+                        } else {
+                            Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else {
+            FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
+                    .document(postId).update("likes", FieldValue.arrayRemove(user))
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            post.removeLike(user);
+                            postLikes.setText(String.valueOf(post.getLikes().size()));
+                        } else {
+                            Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 }

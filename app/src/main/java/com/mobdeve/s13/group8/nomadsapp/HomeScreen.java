@@ -56,7 +56,7 @@ public class HomeScreen extends AppCompatActivity {
                     }
                 }
 
-                HomeAdapter homeAdapter = new HomeAdapter(posts);
+                HomeAdapter homeAdapter = new HomeAdapter(posts, currentUser);
                 homeRecyclerView.setAdapter(homeAdapter);
                 homeAdapter.notifyDataSetChanged();
             } else {
@@ -67,7 +67,7 @@ public class HomeScreen extends AppCompatActivity {
 
         // recycler view
         this.homeRecyclerView = findViewById(R.id.homeRv);
-        this.homeRecyclerView.setAdapter(new HomeAdapter(posts));
+        this.homeRecyclerView.setAdapter(new HomeAdapter(posts, currentUser));
         LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.homeRecyclerView.setLayoutManager(layoutManagerV);
 
