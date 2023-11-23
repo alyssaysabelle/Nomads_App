@@ -54,12 +54,7 @@ public class ViewProfile extends AppCompatActivity {
         User currentUser = (User) getIntent().getSerializableExtra("currentUser");
         viewBinding.ownUsernameTv.setText(currentUser.getUsername());
         Picasso.get().load(Uri.parse(currentUser.getImageId())).into(profilePic);
-        profilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePicture();
-            }
-        });
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // check if user has posts in db
