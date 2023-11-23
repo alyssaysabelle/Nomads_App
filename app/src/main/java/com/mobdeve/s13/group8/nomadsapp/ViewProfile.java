@@ -51,12 +51,8 @@ public class ViewProfile extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        //ActivityViewProfileBinding viewBinding = ActivityViewProfileBinding.inflate(getLayoutInflater());
-        //setContentView(viewBinding.getRoot());
-
         User currentUser = (User) getIntent().getSerializableExtra("currentUser");
         viewBinding.ownUsernameTv.setText(currentUser.getUsername());
-        // profilePic.setImageURI(Uri.parse(currentUser.getImageId()));
         Picasso.get().load(Uri.parse(currentUser.getImageId())).into(profilePic);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +95,46 @@ public class ViewProfile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ViewProfile.this, Login.class);
                 startActivity(intent);
+            }
+        });
+
+        viewBinding.myPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                posts.clear();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                // check if user has posts in db
+                db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Post post = document.toObject(Post.class);
+                            posts.add(post);
+                        }
+                        updateOwnProfileAdapter();
+                    }
+                });
+            }
+        });
+
+        viewBinding.myFollowingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // declare db
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                // check if user has following
+                /* TODO: display following */
+                db.collection("Users").whereEqualTo("username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            User user = document.toObject(User.class);
+                            if (user.getFollowing() == null) {
+                                Toast.makeText(ViewProfile.this, "You are not following anyone", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ViewProfile.this, user.getFollowing() + " following", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
             }
         });
 

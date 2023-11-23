@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String email;
     private String imageId;
     private ArrayList<User> followers;
+    private ArrayList<User> following;
 
     public User() {
     }
@@ -74,5 +75,21 @@ public class User implements Serializable {
 
     public void removeFollower(User follower) {
         this.followers.remove(follower);
+    }
+
+    public void setFollowing(ArrayList<User> following) {
+        this.following = following;
+    }
+
+    public ArrayList<User> getFollowing() {
+        return following;
+    }
+
+    public void addFollowing(User following) {
+        this.following.add(following);
+    }
+
+    public void removeFollowing(User following) {
+        this.following.remove(following);
     }
 }

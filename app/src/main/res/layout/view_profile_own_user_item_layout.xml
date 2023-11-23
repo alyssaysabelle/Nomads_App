@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout7"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:orientation="vertical"
-    android:paddingLeft="40sp"
-    android:paddingRight="40sp"
-    android:paddingBottom="24sp"
-    tools:context=".view_profile_own_user_item_layout">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/fullPostDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/itim"
-        android:text="October 15, 2023" />
+        android:text="October 15, 2023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/location"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:fontFamily="@font/itim"
         android:text="Planet Jupiter, Outer Space"
-        android:textColor="#737373" />
+        android:textColor="#737373"
+        app:layout_constraintStart_toStartOf="@+id/fullPostDate"
+        app:layout_constraintTop_toBottomOf="@+id/fullPostDate" />
 
     <TextView
         android:id="@+id/caption"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/itim"
-        android:text="Today is sunny. I went for a walk around Jupiter. The view of Jupiter was amazing." />
+        android:text="Today is sunny. I went for a walk around Jupiter. The view of Jupiter was amazing."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/postImageView"
-        android:layout_width="match_parent"
-        android:layout_height="120sp"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/rounded_corner_image"
-        app:shapeAppearanceOverlay="@style/rounddpsmall"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caption"
+        app:shapeAppearanceOverlay="@style/rounddpsmall" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
