@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ViewSinglePost">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/postImageIv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sample_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postBodyTv"
-        app:shapeAppearanceOverlay="@style/rounddpsmall" />
-
     <ImageButton
         android:id="@+id/backImageBtn2"
         android:layout_width="30sp"
@@ -66,6 +52,41 @@
         app:layout_constraintTop_toBottomOf="@+id/backImageBtn2"
         app:shapeAppearanceOverlay="@style/rounddp" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentImageBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/postBodyTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/itim"
+                android:paddingBottom="10sp"
+                android:text="TextView" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/postImageIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_bg"
+                app:shapeAppearanceOverlay="@style/rounddpsmall" />
+        </LinearLayout>
+    </ScrollView>
+
     <TextView
         android:id="@+id/postCaptionTv"
         android:layout_width="wrap_content"
@@ -77,19 +98,6 @@
         android:textColor="#737373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userIv" />
-
-    <TextView
-        android:id="@+id/postBodyTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/itim"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
