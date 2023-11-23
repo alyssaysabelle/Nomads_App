@@ -5,10 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
 public class Comments extends AppCompatActivity {
+
+    private ImageButton commentsBackBtn;
 
     private ArrayList<Comment> comments = new ArrayList<>();
     private RecyclerView commentRecyclerView;
@@ -16,6 +20,14 @@ public class Comments extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
+        //set back button
+        commentsBackBtn=findViewById(R.id.commentsBackBtn);
+        commentsBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // recycler view
         this.commentRecyclerView = findViewById(R.id.commentsRv);
