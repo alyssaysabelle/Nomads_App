@@ -111,6 +111,9 @@ public class Comments extends AppCompatActivity {
                                     commentsCount.setText(post.getComments().size() + " comments");
                                     commentRecyclerView.getAdapter().notifyItemInserted(comments.size() - 1);
                                     viewBinding3.commentEt.setText("");
+
+                                    setResult(RESULT_OK);
+
                                 } else {
                                     Toast.makeText(Comments.this, "Error adding comment", Toast.LENGTH_SHORT).show();
                                 }

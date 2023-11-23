@@ -42,7 +42,6 @@ public class ViewSinglePost extends AppCompatActivity {
     private String postId;
     private User currentUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,42 +77,7 @@ public class ViewSinglePost extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // query for same post id
-        db.collection(MyFirestoreReferences.POSTS_COLLECTION).whereEqualTo(MyFirestoreReferences.POST_ID_FIELD, postId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    post = document.toObject(Post.class);
-                    username.setText(post.getUser().getUsername());
-                    Picasso.get().load(post.getUser().getImageId()).into(profilePic);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy HH:mm:ss", Locale.getDefault());
-                    postDate.setText(dateFormat.format(post.getDate()));
-                    postCaption.setText(post.getCaption());
-                    postLocation.setText(post.getLocation());
-                    postBody.setText(post.getBody());
-                    // check if likes is null
-                    if (post.getLikes() == null)
-                        postLikes.setText("0 likes");
-                    else {
-                        postLikes.setText(String.valueOf(post.getLikes().size()));
-
-                        // check if user already liked the post
-                        /*for (User user : post.getLikes()) {
-                            if (user.getId().equals(currentUser.getId())) {
-                                likeBtn.setBackgroundResource(R.drawable.like_button);
-                                isClicked = true;
-                            }
-                        }*/
-                    }
-                    Picasso.get().load(post.getImageId()).into(ImageId);
-                    // check if comments is null
-                    if (post.getComments() == null)
-                        postComments.setText("0 comments");
-                    else
-                        postComments.setText(post.getComments().size() + " comments");
-                }
-            } else {
-                Toast.makeText(ViewSinglePost.this, "Error getting post", Toast.LENGTH_SHORT).show();
-            }
-        });
+        loadPostData();
 
         viewBinding2.likeImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,4 +133,51 @@ public class ViewSinglePost extends AppCompatActivity {
                     });
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPostData();
+    }
+
+    private void loadPostData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(MyFirestoreReferences.POSTS_COLLECTION).whereEqualTo(MyFirestoreReferences.POST_ID_FIELD, postId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    post = document.toObject(Post.class);
+                    username.setText(post.getUser().getUsername());
+                    Picasso.get().load(post.getUser().getImageId()).into(profilePic);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy HH:mm:ss", Locale.getDefault());
+                    postDate.setText(dateFormat.format(post.getDate()));
+                    postCaption.setText(post.getCaption());
+                    postLocation.setText(post.getLocation());
+                    postBody.setText(post.getBody());
+                    // check if likes is null
+                    if (post.getLikes() == null)
+                        postLikes.setText("0 likes");
+                    else {
+                        postLikes.setText(String.valueOf(post.getLikes().size()));
+
+                        // check if user already liked the post
+                        /*for (User user : post.getLikes()) {
+                            if (user.getId().equals(currentUser.getId())) {
+                                likeBtn.setBackgroundResource(R.drawable.like_button);
+                                isClicked = true;
+                            }
+                        }*/
+                    }
+                    Picasso.get().load(post.getImageId()).into(ImageId);
+                    // check if comments is null
+                    if (post.getComments() == null)
+                        postComments.setText("0 comments");
+                    else
+                        postComments.setText(post.getComments().size() + " comments");
+                }
+            } else {
+                Toast.makeText(ViewSinglePost.this, "Error getting post", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
