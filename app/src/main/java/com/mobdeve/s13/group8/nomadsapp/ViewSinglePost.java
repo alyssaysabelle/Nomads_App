@@ -148,7 +148,7 @@ public class ViewSinglePost extends AppCompatActivity {
                     post = document.toObject(Post.class);
                     username.setText(post.getUser().getUsername());
                     Picasso.get().load(post.getUser().getImageId()).into(profilePic);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy HH:mm:ss", Locale.getDefault());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.getDefault());
                     postDate.setText(dateFormat.format(post.getDate()));
                     postCaption.setText(post.getCaption());
                     postLocation.setText(post.getLocation());

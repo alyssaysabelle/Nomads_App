@@ -76,12 +76,12 @@ public class ViewSinglePostOwn extends AppCompatActivity {
                     post = document.toObject(Post.class);
                     username.setText(post.getUser().getUsername());
                     Picasso.get().load(post.getUser().getImageId()).into(profilePic);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy HH:mm:ss", Locale.getDefault());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss", Locale.getDefault());
                     postDate.setText(dateFormat.format(post.getDate()));
                     postCaption.setText(post.getCaption());
                     postLocation.setText(post.getLocation());
                     postBody.setText(post.getBody());
-                    postLikes.setText(String.valueOf(post.getLikes()));
+                    postLikes.setText(String.valueOf(post.getLikes().size()));
                     Picasso.get().load(post.getImageId()).into(ImageId);
                     // check if comments is null
                     if (post.getComments() == null)
@@ -98,15 +98,15 @@ public class ViewSinglePostOwn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 isClicked = !isClicked;
-
+                /* TODO: fix update likes */
                 if (isClicked) {
                     view.setBackgroundResource(R.drawable.like_button);
                     //db.collection("Posts").document(postId).update("likes", FieldValue.increment(1));
-                    updateLikeCount(1);
+                    //updateLikeCount(1);
                 } else {
                     view.setBackgroundResource(R.drawable.not_liked_button);
                     //db.collection("Posts").document(postId).update("likes", FieldValue.increment(-1));
-                    updateLikeCount(-1);
+                    //updateLikeCount(-1);
                 }
             }
         });
