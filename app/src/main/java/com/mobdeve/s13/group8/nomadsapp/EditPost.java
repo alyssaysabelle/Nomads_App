@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityEditPostBinding;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +25,7 @@ import java.util.Locale;
 
 public class EditPost extends AppCompatActivity {
     private EditText locationEt, captionEt, bodyEt;
+    private ImageView imageView;
     private String location, caption, body;
     private TextView date, file;
     private User currentUser;
@@ -46,12 +49,19 @@ public class EditPost extends AppCompatActivity {
         postStorageReference = postStorage.getReference();
 
         currentUser = (User) getIntent().getSerializableExtra("currentUser");
-        currentPost = (Post) getIntent().getSerializableExtra("currentPost");
+        //currentPost = (Post) getIntent().getSerializableExtra("currentPost");
+        String postId = getIntent().getStringExtra("postId");
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // query for getting post based on id
+        db.collection(MyFirestoreReferences.POSTS_COLLECTION)
+                .document(postId).get().addOnSuccessListener(documentSnapshot -> {
+                    currentPost = documentSnapshot.toObject(Post.class);
+                    Toast.makeText(this, currentPost.getId(), Toast.LENGTH_SHORT).show();
+                });
 
         imageBtn = findViewById(R.id.imageBtn);
         file = findViewById(R.id.file);
-
 
         // back button
         viewBinding.backImageBtn.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +83,16 @@ public class EditPost extends AppCompatActivity {
                 choosePicture();
             }
         });*/
+
+        captionEt = findViewById(R.id.captionEt);
+        locationEt = findViewById(R.id.locationEt);
+        bodyEt = findViewById(R.id.bodyEt);
+        imageView = findViewById(R.id.imageView);
+
+        // get data from intent
+        //locationEt.setText(currentPost.getLocation());
+        //bodyEt.setText(currentPost.getBody());
+        //Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
 
         // update button
         viewBinding.postBtn.setOnClickListener(new View.OnClickListener() {

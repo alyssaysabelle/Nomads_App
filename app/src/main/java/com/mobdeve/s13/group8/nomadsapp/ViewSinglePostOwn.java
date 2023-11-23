@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.mobdeve.s13.group8.nomadsapp.databinding.ActivityViewSinglePostOwnBinding;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -67,7 +68,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
         Intent intent = getIntent();
         postId = intent.getStringExtra("postId");
         currentUser = (User) getIntent().getSerializableExtra("currentUser");
-        Toast.makeText(this, currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+
         // get post from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -117,6 +118,16 @@ public class ViewSinglePostOwn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewSinglePostOwn.this, Comments.class);
+                intent.putExtra("postId", postId);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
+            }
+        });
+
+        viewBinding3.editImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewSinglePostOwn.this, EditPost.class);
                 intent.putExtra("postId", postId);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);

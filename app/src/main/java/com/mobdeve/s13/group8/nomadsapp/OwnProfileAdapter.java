@@ -38,8 +38,6 @@ public class OwnProfileAdapter extends RecyclerView.Adapter<OwnProfileViewHolder
                 intent.putExtra("postId", posts.get(position).getId());
                 intent.putExtra("currentUser", currentUser);
                 v.getContext().startActivity(intent);
-
-                Toast.makeText(v.getContext(), "User " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
             }
         });
     }
