@@ -45,8 +45,8 @@ public class CreatePost extends AppCompatActivity {
         ActivityCreatePostBinding viewBinding = ActivityCreatePostBinding.inflate(getLayoutInflater());
         setContentView(viewBinding.getRoot());
 
-        postStorage=FirebaseStorage.getInstance();
-        postStorageReference=postStorage.getReference();
+        postStorage = FirebaseStorage.getInstance();
+        postStorageReference = postStorage.getReference();
 
         currentUser = (User) getIntent().getSerializableExtra("currentUser");
 

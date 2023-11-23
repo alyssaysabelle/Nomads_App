@@ -33,6 +33,8 @@ public class Post {
         this.location = location;
         this.caption = caption;
         this.body = body;
+        this.likes = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public Post(User user, String location, String caption, String body, String ImageId){
@@ -41,6 +43,8 @@ public class Post {
         this.caption = caption;
         this.body = body;
         this.ImageId = ImageId;
+        this.likes = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public Date getDate() {
@@ -71,6 +75,8 @@ public class Post {
         return likes;
     }
 
+    public ArrayList<Comment> getComments() { return comments; }
+
     public void addLike(User user) {
         likes.add(user);
     }
@@ -79,14 +85,9 @@ public class Post {
         likes.remove(user);
     }
 
-    public void addComments(User user, String comment) {
-        comments.add(new Comment(user, comment));
+    public void addComments(Comment comment) {
+        comments.add(comment);
     }
-
-    public ArrayList<Comment> getComments(){
-        return comments;
-    }
-
 
     public String getId() {
         return id;

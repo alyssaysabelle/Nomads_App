@@ -3,6 +3,7 @@ package com.mobdeve.s13.group8.nomadsapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -91,8 +92,17 @@ public class ViewSinglePost extends AppCompatActivity {
                     // check if likes is null
                     if (post.getLikes() == null)
                         postLikes.setText("0 likes");
-                    else
+                    else {
                         postLikes.setText(String.valueOf(post.getLikes().size()));
+
+                        // check if user already liked the post
+                        /*for (User user : post.getLikes()) {
+                            if (user.getId().equals(currentUser.getId())) {
+                                likeBtn.setBackgroundResource(R.drawable.like_button);
+                                isClicked = true;
+                            }
+                        }*/
+                    }
                     Picasso.get().load(post.getImageId()).into(ImageId);
                     // check if comments is null
                     if (post.getComments() == null)
@@ -125,8 +135,9 @@ public class ViewSinglePost extends AppCompatActivity {
         commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(ViewSinglePost.this, Comments.class);
+                intent.putExtra("postId", postId);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             }
         });
