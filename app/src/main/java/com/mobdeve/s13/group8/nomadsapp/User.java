@@ -2,14 +2,10 @@ package com.mobdeve.s13.group8.nomadsapp;
 
 import android.net.Uri;
 
-import com.google.firebase.firestore.Exclude;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    @Exclude
-    private String id;
     private String fullname;
     private String username;
     private String password;
@@ -95,11 +91,5 @@ public class User implements Serializable {
 
     public void removeFollowing(User following) {
         this.following.remove(following);
-    }
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
 }

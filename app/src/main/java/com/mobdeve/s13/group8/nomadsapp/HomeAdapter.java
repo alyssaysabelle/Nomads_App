@@ -1,6 +1,5 @@
 package com.mobdeve.s13.group8.nomadsapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,9 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     private ArrayList<Post> posts;
-    private User currentUser;
 
-
-    public HomeAdapter(ArrayList<Post> data, User user) {
+    public HomeAdapter(ArrayList<Post> data) {
         this.posts = data;
-        this.currentUser = user;
     }
 
     @Override
@@ -28,7 +24,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(HomeViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(HomeViewHolder holder, int position) {
         holder.bindData(posts.get(position));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +32,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
                 intent.putExtra("postId", posts.get(position).getId());
-                intent.putExtra("currentUser", currentUser);
                 v.getContext().startActivity(intent);
             }
         });
