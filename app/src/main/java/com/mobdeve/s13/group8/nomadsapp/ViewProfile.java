@@ -101,24 +101,36 @@ public class ViewProfile extends AppCompatActivity {
         viewBinding.myFollowingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // declare db
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                // check if user has following
-                /* TODO: display following */
-                db.collection("Users").whereEqualTo("username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            User user = document.toObject(User.class);
-                            if (user.getFollowing() == null) {
-                                Toast.makeText(ViewProfile.this, "You are not following anyone", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(ViewProfile.this, user.getFollowing() + " following", Toast.LENGTH_SHORT).show();
+
+                // Check if the current user has a list of following users
+                if (currentUser.getFollowing() != null) {
+                    // Get the list of following usernames
+                    ArrayList<String> followingUsernames = currentUser.getFollowing();
+
+                    // Query the Users collection for the users in the following list
+                    db.collection("Users").whereIn("username", followingUsernames).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            ArrayList<User> followingUsers = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                User followingUser = document.toObject(User.class);
+                                followingUsers.add(followingUser);
                             }
+
+                            // Now you have the list of users that the current user is following
+                            // Do whatever you want with this list (e.g., display it)
+                            displayFollowingUsers(followingUsers);
+                        } else {
+                            Toast.makeText(ViewProfile.this, "Error fetching following users", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(ViewProfile.this, "You are not following anyone", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         // recycler view
         this.ownProfileRecyclerView = findViewById(R.id.ownProfileRv);
@@ -133,6 +145,13 @@ public class ViewProfile extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
+    }
+
+    private void displayFollowingUsers(ArrayList<User> followingUsers) {
+        this.ownProfileRecyclerView = findViewById(R.id.ownProfileRv);
+        this.ownProfileRecyclerView.setAdapter(new SearchUserAdapter(followingUsers, currentUser));
+        LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        this.ownProfileRecyclerView.setLayoutManager(layoutManagerV);
     }
 
     @Override
