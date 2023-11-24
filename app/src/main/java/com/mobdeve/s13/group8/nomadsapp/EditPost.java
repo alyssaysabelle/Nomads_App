@@ -176,7 +176,6 @@ public class EditPost extends AppCompatActivity {
 
                 db.collection("Posts").document(currentPost.getId()).delete()
                         .addOnSuccessListener(documentReference -> {
-                            setResult(RESULT_OK);
                             Toast.makeText(EditPost.this, "Post deleted successfully", Toast.LENGTH_SHORT).show();
                         })
                         .addOnFailureListener(e -> {
@@ -185,6 +184,7 @@ public class EditPost extends AppCompatActivity {
                             });
 
                 Intent intent = new Intent(EditPost.this, ViewProfile.class);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             }
         });
