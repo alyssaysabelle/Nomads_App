@@ -11,9 +11,11 @@ import java.util.ArrayList;
 
 public class SearchPostAdapter extends RecyclerView.Adapter<SearchPostsViewHolder>{
         private ArrayList<Post> posts;
+        private User currentUser;
 
-    public SearchPostAdapter(ArrayList<Post> data) {
+    public SearchPostAdapter(ArrayList<Post> data, User currentUser) {
         this.posts = data;
+        this.currentUser= currentUser;
     }
 
     @Override
@@ -30,9 +32,16 @@ public class SearchPostAdapter extends RecyclerView.Adapter<SearchPostsViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
-                intent.putExtra("postId", posts.get(position).getId());
-                v.getContext().startActivity(intent);
+                if(currentUser.getUsername().equals(posts.get(position).getUser().getUsername())){
+                    Intent intent = new Intent(v.getContext(), ViewSinglePostOwn.class);
+                    intent.putExtra("postId", posts.get(position).getId());
+                    v.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
+                    intent.putExtra("postId", posts.get(position).getId());
+                    v.getContext().startActivity(intent);
+                }
+
             }
         });
     }

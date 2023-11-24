@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
     private ArrayList<User> users = new ArrayList<>();
     private RecyclerView searchPostRecyclerView;
     private RecyclerView searchUserRecyclerView;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,11 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
         ActivitySearchBinding viewBinding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(viewBinding.getRoot());
+        // current user
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("currentUser")) {
+            currentUser = (User) intent.getSerializableExtra("currentUser");
+        }
 
         // back button
         viewBinding.backImageBtn3.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +104,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
             private void updateSearchPostAdapter() {
                 searchPostRecyclerView = findViewById(R.id.searchRv);
-                SearchPostAdapter postAdapter = new SearchPostAdapter(posts);
+                SearchPostAdapter postAdapter = new SearchPostAdapter(posts, currentUser);
                 searchPostRecyclerView.setAdapter(postAdapter);
                 LinearLayoutManager layoutManagerV = new LinearLayoutManager(Search.this, LinearLayoutManager.VERTICAL, false);
                 searchPostRecyclerView.setLayoutManager(layoutManagerV);
@@ -117,7 +124,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         category = parent.getItemAtPosition(position).toString();
         if(category.equals("Posts")){
             this.searchPostRecyclerView = findViewById(R.id.searchRv);
-            this.searchPostRecyclerView.setAdapter(new SearchPostAdapter(posts));
+            this.searchPostRecyclerView.setAdapter(new SearchPostAdapter(posts, currentUser));
             LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             this.searchPostRecyclerView.setLayoutManager(layoutManagerV);
         }

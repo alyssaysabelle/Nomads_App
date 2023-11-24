@@ -88,6 +88,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeScreen.this, Search.class);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
             }
         });
