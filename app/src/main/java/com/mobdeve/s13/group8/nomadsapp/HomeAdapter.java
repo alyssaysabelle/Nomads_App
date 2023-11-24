@@ -30,6 +30,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     @Override
     public void onBindViewHolder(HomeViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.bindData(posts.get(position));
+        holder.itemView.findViewById(R.id.imageButton2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Comments.class);
+                intent.putExtra("postId", posts.get(position).getId());
+                intent.putExtra("currentUser", currentUser);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
