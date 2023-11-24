@@ -34,7 +34,7 @@ import java.util.UUID;
 public class EditPost extends AppCompatActivity {
     private EditText locationEt, captionEt, bodyEt;
     private ImageView imageView;
-    private String location, caption, body, dateTv;
+    private String location, caption, body;
     private Uri imageUri;
     private TextView date, file;
     private User currentUser;

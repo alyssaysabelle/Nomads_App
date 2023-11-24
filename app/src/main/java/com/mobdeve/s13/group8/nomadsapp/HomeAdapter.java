@@ -29,7 +29,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
 
     @Override
     public void onBindViewHolder(HomeViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.bindData(posts.get(position));
+        holder.bindData(posts.get(position), currentUser);
         holder.itemView.findViewById(R.id.imageButton2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
