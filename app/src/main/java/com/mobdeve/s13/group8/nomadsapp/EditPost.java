@@ -67,9 +67,10 @@ public class EditPost extends AppCompatActivity {
                     captionEt.setText(currentPost.getCaption());
                     locationEt.setText(currentPost.getLocation());
                     bodyEt.setText(currentPost.getBody());
-                    Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
-
-                    //Toast.makeText(this, currentPost.getId(), Toast.LENGTH_SHORT).show();
+                    if (currentPost.getImageId() != null)
+                        Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
+                    else
+                        imageView.setVisibility(View.GONE);
                 });
 
         // set current date
@@ -155,7 +156,6 @@ public class EditPost extends AppCompatActivity {
 
                 Intent intent = new Intent(EditPost.this, ViewProfile.class);
                 startActivity(intent);
-                //finish();
             }
         });
 
