@@ -20,7 +20,7 @@ public class Post {
     @ServerTimestamp
     private Date date;
 
-    private ArrayList<User> likes;
+    private ArrayList<String> likes;
 
     private ArrayList<Comment> comments;
 
@@ -81,18 +81,18 @@ public class Post {
         return location;
     }
 
-    public ArrayList<User> getLikes() {
+    public ArrayList<String> getLikes() {
         return likes;
     }
 
     public ArrayList<Comment> getComments() { return comments; }
 
-    public void addLike(User user) {
-        likes.add(user);
+    public void addLike(String username) {
+        likes.add(username);
     }
 
-    public void removeLike(User user) {
-        likes.remove(user);
+    public void removeLike(String username) {
+        likes.remove(username);
     }
 
     public void addComments(Comment comment) {

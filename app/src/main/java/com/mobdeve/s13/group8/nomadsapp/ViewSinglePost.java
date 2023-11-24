@@ -115,10 +115,10 @@ public class ViewSinglePost extends AppCompatActivity {
     private void updateLikeCount (User user, boolean increment) {
         if (increment) {
             FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
-                    .document(postId).update("likes", FieldValue.arrayUnion(user))
+                    .document(postId).update("likes", FieldValue.arrayUnion(user.getUsername()))
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            post.addLike(user);
+                            post.addLike(user.getUsername());
                             postLikes.setText(String.valueOf(post.getLikes().size()));
                         } else {
                             Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
@@ -127,10 +127,10 @@ public class ViewSinglePost extends AppCompatActivity {
         }
         else {
             FirebaseFirestore.getInstance().collection(MyFirestoreReferences.POSTS_COLLECTION)
-                    .document(postId).update("likes", FieldValue.arrayRemove(user))
+                    .document(postId).update("likes", FieldValue.arrayRemove(user.getUsername()))
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            post.removeLike(user);
+                            post.removeLike(user.getUsername());
                             postLikes.setText(String.valueOf(post.getLikes().size()));
                         } else {
                             Toast.makeText(ViewSinglePost.this, "Error updating likes", Toast.LENGTH_SHORT).show();
