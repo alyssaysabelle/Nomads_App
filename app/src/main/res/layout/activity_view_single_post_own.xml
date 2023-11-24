@@ -52,7 +52,7 @@
         android:src="@drawable/user3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backImageBtn2"
-        app:shapeAppearanceOverlay="@style/rounddp" />
+        app:shapeAppearanceOverlay="@style/rounddphomenew" />
 
     <TextView
         android:id="@+id/postCaptionTv"
