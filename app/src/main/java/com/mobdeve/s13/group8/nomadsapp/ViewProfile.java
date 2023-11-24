@@ -39,8 +39,8 @@ public class ViewProfile extends AppCompatActivity {
     private ImageView profilePic;
     public Uri imageUri;
     private FirebaseStorage storage;
-    private
-    StorageReference storageReference;
+    private StorageReference storageReference;
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class ViewProfile extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        User currentUser = (User) getIntent().getSerializableExtra("currentUser");
+        currentUser = (User) getIntent().getSerializableExtra("currentUser");
         viewBinding.ownUsernameTv.setText(currentUser.getUsername());
         Picasso.get().load(Uri.parse(currentUser.getImageId())).into(profilePic);
 
@@ -207,5 +207,4 @@ public class ViewProfile extends AppCompatActivity {
                     Log.e("ViewProfile", "Error updating user profile picture URL", e);
                 });
     }
-
 }

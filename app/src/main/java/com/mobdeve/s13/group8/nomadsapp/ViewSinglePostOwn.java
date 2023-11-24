@@ -3,6 +3,7 @@ package com.mobdeve.s13.group8.nomadsapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -109,6 +110,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
                 intent.putExtra("currentUser", currentUser);
                 //startActivity(intent);
                 startActivityForResult(intent, EDIT_POST_REQUEST_CODE);
+                finish();
             }
         });
     }
@@ -145,6 +147,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
         super.onResume();
         loadPostData();
     }
+
 
     private void loadPostData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
