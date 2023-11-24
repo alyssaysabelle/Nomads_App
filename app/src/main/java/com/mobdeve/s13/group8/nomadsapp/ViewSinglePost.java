@@ -100,6 +100,16 @@ public class ViewSinglePost extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewSinglePost.this, ViewOtherProfile.class);
+                intent.putExtra("currentUser", currentUser);
+                intent.putExtra("otherUser", post.getUser());
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateLikeCount (User user, boolean increment) {
