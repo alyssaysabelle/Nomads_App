@@ -52,13 +52,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:text="image"
         android:textColor="#657B9D"
         android:textSize="12sp"
         android:textStyle="italic"
-        app:layout_constraintStart_toEndOf="@+id/imageBtn"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/postBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageBtn" />
 
     <TextView
         android:id="@+id/newDateTv"

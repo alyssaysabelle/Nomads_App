@@ -163,7 +163,7 @@ public class EditPost extends AppCompatActivity {
                     // Handle the case where caption or location is empty
                     Toast.makeText(EditPost.this, "Caption and location cannot be empty", Toast.LENGTH_SHORT).show();
                 }
-                
+
                 finish();
             }
         });
