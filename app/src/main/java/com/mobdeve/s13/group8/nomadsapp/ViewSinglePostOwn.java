@@ -39,6 +39,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
     private String postId;
     private User currentUser;
     private static final int EDIT_POST_REQUEST_CODE = 123;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
         //set back button
         viewBinding3.backImageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                finish();
-            }
+            public void onClick(View view) { finish(); }
         });
 
         username = findViewById(R.id.postUsernameTv);
@@ -75,7 +74,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // query for same post id
-        loadPostData();
+        //loadPostData();
 
         viewBinding3.likeImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,5 +195,18 @@ public class ViewSinglePostOwn extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        // Create an intent to start the ViewProfile activity
+        super.onBackPressed();
+
+        Intent intent = new Intent(ViewSinglePostOwn.this, ViewProfile.class);
+        intent.putExtra("currentUser", currentUser);
+        startActivity(intent);
+
+        finish();
+    }
+
 
 }

@@ -55,19 +55,6 @@ public class ViewProfile extends AppCompatActivity {
         viewBinding.ownUsernameTv.setText(currentUser.getUsername());
         Picasso.get().load(Uri.parse(currentUser.getImageId())).into(profilePic);
 
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // check if user has posts in db
-        db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Post post = document.toObject(Post.class);
-                    posts.add(post);
-                }
-                updateOwnProfileAdapter();
-            }
-        });
-
         // check if user has followers
         if (currentUser.getFollowers() == null) {
             viewBinding.ownFollowerTv.setText("0 followers");
@@ -207,4 +194,22 @@ public class ViewProfile extends AppCompatActivity {
                     Log.e("ViewProfile", "Error updating user profile picture URL", e);
                 });
     }
-}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+            posts.clear();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            // check if user has posts in db
+            db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Post post = document.toObject(Post.class);
+                        posts.add(post);
+                    }
+                    updateOwnProfileAdapter();
+                }
+            });
+        }
+
+    }
