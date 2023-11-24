@@ -79,13 +79,13 @@ public class ViewOtherProfile extends AppCompatActivity {
 
         // recycler view
         this.otherProfileRecyclerView = findViewById(R.id.otherUserRv);
-        this.otherProfileRecyclerView.setAdapter(new OwnProfileAdapter(posts, currentUser));
+        this.otherProfileRecyclerView.setAdapter(new OthersProfileAdapter(posts, currentUser));
         LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         this.otherProfileRecyclerView.setLayoutManager(layoutManagerV);
     }
 
     private void updateOwnProfileAdapter() {
-        OwnProfileAdapter otherProfileAdapter = new OwnProfileAdapter(posts, currentUser);
+        OthersProfileAdapter otherProfileAdapter = new OthersProfileAdapter(posts, currentUser);
         otherProfileRecyclerView.setAdapter(otherProfileAdapter);
         otherProfileAdapter.notifyDataSetChanged();
     }
