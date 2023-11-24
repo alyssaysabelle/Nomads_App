@@ -15,8 +15,8 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String imageId;
-    private ArrayList<User> followers;
-    private ArrayList<User> following;
+    private ArrayList<String> followers;
+    private ArrayList<String> following;
 
     public User() {
     }
@@ -27,6 +27,8 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.imageId = imageId;
+        this.following = new ArrayList<>();
+        this.followers = new ArrayList<>();
     }
 
     public String getFullname() {
@@ -49,7 +51,7 @@ public class User implements Serializable {
         return email;
     }
 
-    public ArrayList<User> getFollowers() {
+    public ArrayList<String> getFollowers() {
         return followers;
     }
 
@@ -73,27 +75,30 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public void addFollower(User follower) {
+    public void addFollower(String follower) {
+        if (followers == null) {
+            followers = new ArrayList<>();
+        }
         this.followers.add(follower);
     }
 
-    public void removeFollower(User follower) {
+    public void removeFollower(String follower) {
         this.followers.remove(follower);
     }
 
-    public void setFollowing(ArrayList<User> following) {
+    public void setFollowing(ArrayList<String> following) {
         this.following = following;
     }
 
-    public ArrayList<User> getFollowing() {
+    public ArrayList<String> getFollowing() {
         return following;
     }
 
-    public void addFollowing(User following) {
+    public void addFollowing(String following) {
         this.following.add(following);
     }
 
-    public void removeFollowing(User following) {
+    public void removeFollowing(String following) {
         this.following.remove(following);
     }
     public String getId() {
@@ -101,5 +106,12 @@ public class User implements Serializable {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isFollowing(String username) {
+        if (following == null) {
+            return false;
+        }
+        return following != null && following.contains(username);
     }
 }

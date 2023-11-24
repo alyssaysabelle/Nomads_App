@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -71,11 +72,56 @@ public class ViewOtherProfile extends AppCompatActivity {
             }
         });
 
+        if (currentUser.isFollowing(otherUser.getUsername()))
+            viewBinding.followBtn.setText("Following");
+        else
+            viewBinding.followBtn.setText("Follow");
+
         viewBinding.followBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Check if the current user is already following the other user
+                if (currentUser.isFollowing(otherUser.getUsername())) {
+                    // If already following, implement unfollow logic
+                    currentUser.removeFollowing(otherUser.getUsername());
+                    otherUser.removeFollower(currentUser.getUsername());
+                    if (otherUser.getFollowers() == null)
+                        followers.setText("0 followers");
+                    else
+                        followers.setText(otherUser.getFollowers().size() + " followers");
+                    viewBinding.followBtn.setText("Follow"); // Change button text to "Follow" or set other appearance
+                } else {
+                    // If not following, implement follow logic
+                    currentUser.addFollowing(otherUser.getUsername());
+                    otherUser.addFollower(currentUser.getUsername());
+                    followers.setText(otherUser.getFollowers().size() + " followers");
+                    viewBinding.followBtn.setText("Unfollow"); // Change button text to "Unfollow" or set other appearance
+                }
+
+                // Update user in the database
+                FirebaseFirestore.getInstance().collection(MyFirestoreReferences.USERS_COLLECTION)
+                        .document(currentUser.getUsername())
+                        .set(currentUser)
+                        .addOnSuccessListener(documentReference -> {
+                            // Toast
+                            String toastMessage = currentUser.isFollowing(otherUser.getUsername()) ? "You are now following " : "You have unfollowed ";
+                            Toast.makeText(ViewOtherProfile.this, toastMessage + otherUser.getUsername(), Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            // Failed to update currentUser in the database
+                            Toast.makeText(ViewOtherProfile.this, "Error updating user in the database", Toast.LENGTH_SHORT).show();
+                        });
+
+                FirebaseFirestore.getInstance().collection(MyFirestoreReferences.USERS_COLLECTION)
+                        .document(otherUser.getUsername())
+                        .set(otherUser)
+                        .addOnFailureListener(e -> {
+                            // Failed to update otherUser in the database
+                            Toast.makeText(ViewOtherProfile.this, "Error updating other user in the database", Toast.LENGTH_SHORT).show();
+                        });
             }
         });
+
 
         // recycler view
         this.otherProfileRecyclerView = findViewById(R.id.otherUserRv);
