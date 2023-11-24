@@ -113,8 +113,16 @@ public class EditPost extends AppCompatActivity {
 
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
-                                setResult(RESULT_OK);
                                 Toast.makeText(EditPost.this, "Post updated successfully", Toast.LENGTH_SHORT).show();
+
+                                // Start ViewSinglePostOwn without expecting a result
+                                Intent intent = new Intent(EditPost.this, ViewSinglePostOwn.class);
+                                intent.putExtra("postId", currentPost.getId());
+                                intent.putExtra("currentUser", currentUser);
+                                startActivity(intent);
+
+                                // Finish EditPost activity
+                                finish();
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(EditPost.this, "Failed to update post. Please try again.", Toast.LENGTH_SHORT).show();

@@ -37,6 +37,7 @@ public class ViewSinglePostOwn extends AppCompatActivity {
     private Post post;
     private String postId;
     private User currentUser;
+    private static final int EDIT_POST_REQUEST_CODE = 123;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,8 @@ public class ViewSinglePostOwn extends AppCompatActivity {
                 Intent intent = new Intent(ViewSinglePostOwn.this, EditPost.class);
                 intent.putExtra("postId", postId);
                 intent.putExtra("currentUser", currentUser);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, EDIT_POST_REQUEST_CODE);
             }
         });
     }
