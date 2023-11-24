@@ -37,6 +37,16 @@ public class Post {
         this.comments = new ArrayList<>();
     }
 
+    public Post(String id, User user, String location, String caption, String body){
+        this.id = id;
+        this.user = user;
+        this.location = location;
+        this.caption = caption;
+        this.body = body;
+        this.likes = new ArrayList<>();
+        this.comments = new ArrayList<>();
+    }
+
     public Post(User user, String location, String caption, String body, String ImageId){
         this.user = user;
         this.location = location;

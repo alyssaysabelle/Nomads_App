@@ -109,7 +109,7 @@ public class EditPost extends AppCompatActivity {
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                    Post post = new Post(currentUser, location, caption, body);
+                    Post post = new Post(currentPost.getId(), currentUser, location, caption, body);
 
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
