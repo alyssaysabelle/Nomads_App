@@ -3,6 +3,7 @@ package com.mobdeve.s13.group8.nomadsapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -143,7 +144,10 @@ public class EditPost extends AppCompatActivity {
                             Toast.makeText(EditPost.this, "Failed to delete post. Please try again.", Toast.LENGTH_SHORT).show();
                             Log.e("EditPost", "Error deleting post to Firestore", e);
                             });
-                finish();
+
+                Intent intent = new Intent(EditPost.this, ViewProfile.class);
+                startActivity(intent);
+                //finish();
             }
         });
 
