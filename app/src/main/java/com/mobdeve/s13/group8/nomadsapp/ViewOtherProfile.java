@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,7 +45,10 @@ public class ViewOtherProfile extends AppCompatActivity {
         followers = findViewById(R.id.otherFollowerTv);
         profilePic = findViewById(R.id.otherProfilePicture);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         username.setText(otherUser.getUsername());
+
         // check if followers is null
         if (otherUser.getFollowers() == null)
             followers.setText("0 followers");
@@ -53,7 +57,7 @@ public class ViewOtherProfile extends AppCompatActivity {
 
         Picasso.get().load(otherUser.getImageId()).into(profilePic);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         // get post based on otheruser username
         db.collection("Posts").whereEqualTo("user.username", otherUser.getUsername()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -72,10 +76,14 @@ public class ViewOtherProfile extends AppCompatActivity {
             }
         });
 
-        if (currentUser.isFollowing(otherUser.getUsername()))
+        if (currentUser.isFollowing(otherUser.getUsername())){
             viewBinding.followBtn.setText("Following");
-        else
+            viewBinding.followBtn.setBackgroundColor(Color.parseColor("#818589"));
+        }
+        else{
             viewBinding.followBtn.setText("Follow");
+            viewBinding.followBtn.setBackgroundColor(Color.parseColor("#657B9E"));
+        }
 
         viewBinding.followBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +97,15 @@ public class ViewOtherProfile extends AppCompatActivity {
                         followers.setText("0 followers");
                     else
                         followers.setText(otherUser.getFollowers().size() + " followers");
+                    viewBinding.followBtn.setBackgroundColor(Color.parseColor("#657B9E"));
                     viewBinding.followBtn.setText("Follow"); // Change button text to "Follow" or set other appearance
                 } else {
                     // If not following, implement follow logic
                     currentUser.addFollowing(otherUser.getUsername());
                     otherUser.addFollower(currentUser.getUsername());
                     followers.setText(otherUser.getFollowers().size() + " followers");
-                    viewBinding.followBtn.setText("Unfollow"); // Change button text to "Unfollow" or set other appearance
+                    viewBinding.followBtn.setBackgroundColor(Color.parseColor("#818589"));
+                    viewBinding.followBtn.setText("Following"); // Change button text to "Unfollow" or set other appearance
                 }
 
                 // Update user in the database
@@ -135,4 +145,41 @@ public class ViewOtherProfile extends AppCompatActivity {
         otherProfileRecyclerView.setAdapter(otherProfileAdapter);
         otherProfileAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload user data and update follower count
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Reload user data
+        db.collection(MyFirestoreReferences.USERS_COLLECTION)
+                .document(otherUser.getUsername())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Update the otherUser object with the latest data
+                        otherUser = documentSnapshot.toObject(User.class);
+                        updateFollowerCount();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle the failure to load user data
+                    Toast.makeText(ViewOtherProfile.this, "Error loading user data", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updateFollowerCount() {
+        // Update the follower count TextView based on the latest data
+        if (otherUser.getFollowers() == null) {
+            followers.setText("0 followers");
+        } else {
+            followers.setText(otherUser.getFollowers().size() + " followers");
+        }
+    }
+
 }
