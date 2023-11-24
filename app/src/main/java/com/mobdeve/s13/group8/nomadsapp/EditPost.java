@@ -138,13 +138,19 @@ public class EditPost extends AppCompatActivity {
                     }
 
                     post.setDate(formattedDate);
+                    if (postUri != null) {
+                        post.setImageId(imageUri.toString());
+                    } else {
+                        // If no new image is uploaded, retain the existing image ID
+                        post.setImageId(currentPost.getImageId());
+                    }
 
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
-                                if(postUri != null){
-                                    post.setImageId(imageUri.toString());
-                                    db.collection("Posts").document(currentPost.getId()).update("imageId", imageUri.toString());
-                                }
+                                    if (postUri != null) {
+                                       // post.setImageId(imageUri.toString());
+                                        db.collection("Posts").document(currentPost.getId()).update("imageId", imageUri.toString());
+                                    }
                                 Toast.makeText(EditPost.this, "Post updated successfully", Toast.LENGTH_SHORT).show();
 
                                 // Start ViewSinglePostOwn without expecting a result
