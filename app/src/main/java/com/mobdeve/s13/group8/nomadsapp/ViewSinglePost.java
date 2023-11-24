@@ -76,9 +76,6 @@ public class ViewSinglePost extends AppCompatActivity {
         // get post from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // query for same post id
-        loadPostData();
-
         viewBinding2.likeImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,6 +173,18 @@ public class ViewSinglePost extends AppCompatActivity {
                 Toast.makeText(ViewSinglePost.this, "Error getting post", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Create an intent to start the ViewProfile activity
+        super.onBackPressed();
+
+        Intent intent = new Intent(ViewSinglePost.this, HomeScreen.class);
+        intent.putExtra("currentUser", currentUser);
+        startActivity(intent);
+
+        finish();
     }
 
 }

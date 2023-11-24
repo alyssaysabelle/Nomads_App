@@ -97,7 +97,10 @@ public class CreatePost extends AppCompatActivity {
                                     post.setImageId(imageUri.toString());
                                     db.collection("Posts").document(id).update("imageId", imageUri.toString());
                                 }
+
                                 Toast.makeText(CreatePost.this, "Post added successfully", Toast.LENGTH_SHORT).show();
+
+                                finish();
                             })
                             .addOnFailureListener(e -> {
                                 // Handle the failure to add the post to the database

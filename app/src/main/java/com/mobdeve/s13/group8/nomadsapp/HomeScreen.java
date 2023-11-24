@@ -22,6 +22,7 @@ public class HomeScreen extends AppCompatActivity {
     private ArrayList<Post> posts = new ArrayList<>();
     private RecyclerView homeRecyclerView;
     private User currentUser;
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(viewBinding.getRoot());
 
         // get current user
-        String username = getIntent().getStringExtra(String.valueOf(IntentKeys.USERNAME));
+        username = getIntent().getStringExtra(String.valueOf(IntentKeys.USERNAME));
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection(MyFirestoreReferences.USERS_COLLECTION);
@@ -45,7 +46,7 @@ public class HomeScreen extends AppCompatActivity {
         });
 
         // get all posts aside from own post
-        CollectionReference postsRef = db.collection(MyFirestoreReferences.POSTS_COLLECTION);
+        /*CollectionReference postsRef = db.collection(MyFirestoreReferences.POSTS_COLLECTION);
         postsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 posts.clear(); // Clear the existing posts to avoid duplicates
@@ -63,7 +64,7 @@ public class HomeScreen extends AppCompatActivity {
                 // Handle the case where fetching posts fails
                 Toast.makeText(HomeScreen.this, "Error fetching posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         // recycler view
         this.homeRecyclerView = findViewById(R.id.homeRv);
@@ -98,6 +99,37 @@ public class HomeScreen extends AppCompatActivity {
                 Intent intent = new Intent(HomeScreen.this, CreatePost.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPostData();
+    }
+
+    private void loadPostData() {
+        // get all posts aside from own post
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        CollectionReference postsRef = db.collection(MyFirestoreReferences.POSTS_COLLECTION);
+        postsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                posts.clear(); // Clear the existing posts to avoid duplicates
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Post post = document.toObject(Post.class);
+                    if (!post.getUser().getUsername().equals(username)) {
+                        posts.add(post);
+                    }
+                }
+
+                HomeAdapter homeAdapter = new HomeAdapter(posts, currentUser);
+                homeRecyclerView.setAdapter(homeAdapter);
+                homeAdapter.notifyDataSetChanged();
+            } else {
+                // Handle the case where fetching posts fails
+                Toast.makeText(HomeScreen.this, "Error fetching posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
