@@ -38,8 +38,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
                 intent.putExtra("postId", posts.get(position).getId());
                 intent.putExtra("currentUser", currentUser);
                 v.getContext().startActivity(intent);
-
-                Toast.makeText(v.getContext(), "User " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "User " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
             }
         });
     }
