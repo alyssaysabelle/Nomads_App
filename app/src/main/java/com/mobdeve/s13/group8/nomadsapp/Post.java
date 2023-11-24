@@ -110,4 +110,6 @@ public class Post {
         ImageId = imageId;
     }
 
+    public void setDate(Date date) { this.date = date; }
+
 }

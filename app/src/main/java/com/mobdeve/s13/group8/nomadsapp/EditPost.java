@@ -23,11 +23,12 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.text.ParseException;
 
 public class EditPost extends AppCompatActivity {
     private EditText locationEt, captionEt, bodyEt;
     private ImageView imageView;
-    private String location, caption, body;
+    private String location, caption, body, dateTv;
     private Uri imageUri;
     private TextView date, file;
     private User currentUser;
@@ -67,10 +68,14 @@ public class EditPost extends AppCompatActivity {
                     captionEt.setText(currentPost.getCaption());
                     locationEt.setText(currentPost.getLocation());
                     bodyEt.setText(currentPost.getBody());
-                    if (currentPost.getImageId() != null)
+
+                    if (currentPost.getImageId() != null) {
+                        imageView = findViewById(R.id.imageView);
                         Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
+                    }
                     else
                         imageView.setVisibility(View.GONE);
+
                 });
 
         // set current date
@@ -112,6 +117,15 @@ public class EditPost extends AppCompatActivity {
 
                     Post post = new Post(currentPost.getId(), currentUser, location, caption, body);
 
+                    Date formattedDate = null;
+                    try {
+                        formattedDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).parse(currentDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace(); // Handle the parse exception as needed
+                    }
+
+                    post.setDate(formattedDate);
+
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
                                 Toast.makeText(EditPost.this, "Post updated successfully", Toast.LENGTH_SHORT).show();
@@ -122,7 +136,6 @@ public class EditPost extends AppCompatActivity {
                                 intent.putExtra("currentUser", currentUser);
                                 startActivity(intent);
 
-                                // Finish EditPost activity
                                 finish();
                             })
                             .addOnFailureListener(e -> {

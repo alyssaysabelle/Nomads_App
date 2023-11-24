@@ -173,7 +173,15 @@ public class ViewSinglePostOwn extends AppCompatActivity {
                             }
                         }*/
                     }
-                    Picasso.get().load(post.getImageId()).into(ImageId);
+
+                    // Check if imageId is not null
+                    if (post.getImageId() != null) {
+                        Picasso.get().load(post.getImageId()).into(ImageId);
+                    } else {
+                        // Set visibility to GONE if imageId is null
+                        findViewById(R.id.postImageIv).setVisibility(View.GONE);
+                    }
+
                     // check if comments is null
                     if (post.getComments() == null)
                         postComments.setText("0 comments");
