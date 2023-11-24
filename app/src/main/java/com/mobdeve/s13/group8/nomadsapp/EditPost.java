@@ -141,6 +141,10 @@ public class EditPost extends AppCompatActivity {
 
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
+                                if(postUri != null){
+                                    post.setImageId(imageUri.toString());
+                                    db.collection("Posts").document(currentPost.getId()).update("imageId", imageUri.toString());
+                                }
                                 Toast.makeText(EditPost.this, "Post updated successfully", Toast.LENGTH_SHORT).show();
 
                                 // Start ViewSinglePostOwn without expecting a result
@@ -159,7 +163,7 @@ public class EditPost extends AppCompatActivity {
                     // Handle the case where caption or location is empty
                     Toast.makeText(EditPost.this, "Caption and location cannot be empty", Toast.LENGTH_SHORT).show();
                 }
-
+                
                 finish();
             }
         });
