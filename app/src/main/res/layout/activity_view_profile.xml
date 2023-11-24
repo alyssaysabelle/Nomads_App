@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/transparent_button_bg"
+    android:background="#E7E7E7"
     tools:context=".ViewProfile">
 
     <LinearLayout
@@ -89,7 +89,6 @@
                     android:text="999 followers" />
             </LinearLayout>
         </LinearLayout>
-
 
 
         <LinearLayout

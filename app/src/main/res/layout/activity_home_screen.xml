@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E7E7E7"
     tools:context=".HomeScreen">
 
     <ImageButton
@@ -47,9 +48,9 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#657B9E"
         android:clickable="true"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/create_button"
-        app:tint="#E7E7E7"
-        app:cornerRadius="30dp"/>
+        app:tint="#E7E7E7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

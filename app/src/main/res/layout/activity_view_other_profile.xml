@@ -5,6 +5,7 @@
     android:id="@+id/otherProfileRv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E7E7E7"
     tools:context=".ViewOtherProfile">
 
     <LinearLayout
@@ -87,8 +88,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Follow"
-                android:backgroundTint="#657B9E"/>
+                android:backgroundTint="#657B9E"
+                android:text="Follow" />
         </LinearLayout>
 
         <LinearLayout

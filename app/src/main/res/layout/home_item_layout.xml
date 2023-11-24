@@ -5,6 +5,7 @@
     android:id="@+id/single_post"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#E7E7E7"
     android:paddingLeft="24sp"
     android:paddingRight="24sp">
 
