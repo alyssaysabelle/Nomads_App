@@ -86,11 +86,9 @@ public class ViewSinglePost extends AppCompatActivity {
 
                 if (isClicked) {
                     view.setBackgroundResource(R.drawable.like_button);
-                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(1));
                     updateLikeCount(currentUser, true);
                 } else {
                     view.setBackgroundResource(R.drawable.not_liked_button);
-                    //db.collection("Posts").document(postId).update("likes", FieldValue.increment(-1));
                     updateLikeCount(currentUser, false);
                 }
             }
