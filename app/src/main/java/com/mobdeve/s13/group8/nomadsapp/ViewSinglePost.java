@@ -164,13 +164,14 @@ public class ViewSinglePost extends AppCompatActivity {
                     else {
                         postLikes.setText(String.valueOf(post.getLikes().size()));
 
+                        String currentUsername = currentUser.getUsername();
                         // check if user already liked the post
-                        /*for (User user : post.getLikes()) {
-                            if (user.getId().equals(currentUser.getId())) {
+                        for (String username : post.getLikes()) {
+                            if (username.equals(currentUsername)) {
                                 likeBtn.setBackgroundResource(R.drawable.like_button);
                                 isClicked = true;
                             }
-                        }*/
+                        }
                     }
                     Picasso.get().load(post.getImageId()).into(ImageId);
                     // check if comments is null
