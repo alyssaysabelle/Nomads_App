@@ -27,6 +27,7 @@ public class EditPost extends AppCompatActivity {
     private EditText locationEt, captionEt, bodyEt;
     private ImageView imageView;
     private String location, caption, body;
+    private Uri imageUri;
     private TextView date, file;
     private User currentUser;
     private Post currentPost;
@@ -52,13 +53,28 @@ public class EditPost extends AppCompatActivity {
         //currentPost = (Post) getIntent().getSerializableExtra("currentPost");
         String postId = getIntent().getStringExtra("postId");
 
+        captionEt = findViewById(R.id.captionEt);
+        locationEt = findViewById(R.id.locationEt);
+        bodyEt = findViewById(R.id.bodyEt);
+        imageView = findViewById(R.id.imageView);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // query for getting post based on id
         db.collection(MyFirestoreReferences.POSTS_COLLECTION)
                 .document(postId).get().addOnSuccessListener(documentSnapshot -> {
                     currentPost = documentSnapshot.toObject(Post.class);
-                    Toast.makeText(this, currentPost.getId(), Toast.LENGTH_SHORT).show();
+                    captionEt.setText(currentPost.getCaption());
+                    locationEt.setText(currentPost.getLocation());
+                    bodyEt.setText(currentPost.getBody());
+                    Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
+
+                    //Toast.makeText(this, currentPost.getId(), Toast.LENGTH_SHORT).show();
                 });
+
+        // set current date
+        String currentDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
+        date = findViewById(R.id.newDateTv);
+        date.setText(currentDate);
 
         imageBtn = findViewById(R.id.imageBtn);
         file = findViewById(R.id.file);
@@ -71,11 +87,6 @@ public class EditPost extends AppCompatActivity {
             }
         });
 
-        // set current date
-        String currentDate = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
-        date = findViewById(R.id.newDateTv);
-        date.setText(currentDate);
-
         //upload image button
         /*imageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,28 +95,16 @@ public class EditPost extends AppCompatActivity {
             }
         });*/
 
-        captionEt = findViewById(R.id.captionEt);
-        locationEt = findViewById(R.id.locationEt);
-        bodyEt = findViewById(R.id.bodyEt);
-        imageView = findViewById(R.id.imageView);
-
-        // get data from intent
-        //locationEt.setText(currentPost.getLocation());
-        //bodyEt.setText(currentPost.getBody());
-        //Picasso.get().load(Uri.parse(currentPost.getImageId())).into(imageView);
 
         // update button
         viewBinding.postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String captionEt = viewBinding.captionEt.getText().toString();
-                String locationEt = viewBinding.locationEt.getText().toString();
-                String bodyEt = viewBinding.bodyEt.getText().toString();
+                caption = viewBinding.captionEt.getText().toString();
+                location = viewBinding.locationEt.getText().toString();
+                body = viewBinding.bodyEt.getText().toString();
+                
                 if (!caption.isEmpty() && !location.isEmpty() && !body.isEmpty()) {
-
-                    caption = captionEt.toString();
-                    location = locationEt.toString();
-                    body = bodyEt.toString();
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -113,6 +112,7 @@ public class EditPost extends AppCompatActivity {
 
                     db.collection("Posts").document(currentPost.getId()).set(post)
                             .addOnSuccessListener(documentReference -> {
+                                setResult(RESULT_OK);
                                 Toast.makeText(EditPost.this, "Post updated successfully", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e -> {
@@ -136,6 +136,7 @@ public class EditPost extends AppCompatActivity {
 
                 db.collection("Posts").document(currentPost.getId()).delete()
                         .addOnSuccessListener(documentReference -> {
+                            setResult(RESULT_OK);
                             Toast.makeText(EditPost.this, "Post deleted successfully", Toast.LENGTH_SHORT).show();
                         })
                         .addOnFailureListener(e -> {
