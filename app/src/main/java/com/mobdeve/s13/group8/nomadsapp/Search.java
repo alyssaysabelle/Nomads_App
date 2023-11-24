@@ -96,7 +96,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
             private void updateSearchUserAdapter() {
                 searchUserRecyclerView = findViewById(R.id.searchRv);
-                SearchUserAdapter userAdapter = new SearchUserAdapter(users);
+                SearchUserAdapter userAdapter = new SearchUserAdapter(users, currentUser);
                 searchUserRecyclerView.setAdapter(userAdapter);
                 LinearLayoutManager layoutManagerV = new LinearLayoutManager(Search.this, LinearLayoutManager.VERTICAL, false);
                 searchUserRecyclerView.setLayoutManager(layoutManagerV);
@@ -130,7 +130,7 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
         }
         else {
             this.searchUserRecyclerView = findViewById(R.id.searchRv);
-            this.searchUserRecyclerView.setAdapter(new SearchUserAdapter(users));
+            this.searchUserRecyclerView.setAdapter(new SearchUserAdapter(users, currentUser));
             LinearLayoutManager layoutManagerV = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             this.searchUserRecyclerView.setLayoutManager(layoutManagerV);
         }

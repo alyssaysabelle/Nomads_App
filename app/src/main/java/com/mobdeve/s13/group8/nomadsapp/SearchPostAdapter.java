@@ -32,16 +32,17 @@ public class SearchPostAdapter extends RecyclerView.Adapter<SearchPostsViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentUser.getUsername().equals(posts.get(position).getUser().getUsername())){
+                if (posts.get(position).getUser().getUsername().equals(currentUser.getUsername())) {
                     Intent intent = new Intent(v.getContext(), ViewSinglePostOwn.class);
                     intent.putExtra("postId", posts.get(position).getId());
+                    intent.putExtra("currentUser", currentUser);
                     v.getContext().startActivity(intent);
                 } else {
                     Intent intent = new Intent(v.getContext(), ViewSinglePost.class);
                     intent.putExtra("postId", posts.get(position).getId());
+                    intent.putExtra("currentUser", currentUser);
                     v.getContext().startActivity(intent);
                 }
-
             }
         });
     }
