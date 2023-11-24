@@ -45,27 +45,6 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
-        // get all posts aside from own post
-        /*CollectionReference postsRef = db.collection(MyFirestoreReferences.POSTS_COLLECTION);
-        postsRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                posts.clear(); // Clear the existing posts to avoid duplicates
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Post post = document.toObject(Post.class);
-                    if (!post.getUser().getUsername().equals(username)) {
-                        posts.add(post);
-                    }
-                }
-
-                HomeAdapter homeAdapter = new HomeAdapter(posts, currentUser);
-                homeRecyclerView.setAdapter(homeAdapter);
-                homeAdapter.notifyDataSetChanged();
-            } else {
-                // Handle the case where fetching posts fails
-                Toast.makeText(HomeScreen.this, "Error fetching posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
         // recycler view
         this.homeRecyclerView = findViewById(R.id.homeRv);
         this.homeRecyclerView.setAdapter(new HomeAdapter(posts, currentUser));

@@ -42,14 +42,13 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         this.location.setText(post.getLocation());
         Picasso.get().load(post.getImageId()).into(this.postImage);
 
-        if(post.getLikes() != null && post.getLikes().contains(user.getUsername())) {
-            this.likes.setText(post.getLikes().size() + " likes");
-            this.likeButton.setImageResource(R.drawable.like_button);}
-        else if (post.getLikes() != null && !post.getLikes().contains(user.getUsername()))
-            this.likes.setText(post.getLikes().size() + " likes");
+        if(post.getLikes() != null && post.getLikes().contains(user.getUsername()))
+            this.likeButton.setImageResource(R.drawable.like_button);
 
+        if (post.getLikes().size() == 1)
+            likes.setText(post.getLikes().size() + " like");
         else
-            this.likes.setText("0 likes");
+            likes.setText(post.getLikes().size() + " likes");
 
 
         this.caption.setText(post.getCaption());
