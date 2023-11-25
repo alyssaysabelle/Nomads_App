@@ -104,7 +104,7 @@ public class ViewProfile extends AppCompatActivity {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 // Check if the current user has a list of following users
-                if (currentUser.getFollowing() != null) {
+                if (currentUser.getFollowing() != null && !currentUser.getFollowing().isEmpty()) {
                     // Get the list of following usernames
                     ArrayList<String> followingUsernames = currentUser.getFollowing();
 
@@ -117,9 +117,6 @@ public class ViewProfile extends AppCompatActivity {
                                 User followingUser = document.toObject(User.class);
                                 followingUsers.add(followingUser);
                             }
-
-                            // Now you have the list of users that the current user is following
-                            // Do whatever you want with this list (e.g., display it)
                             displayFollowingUsers(followingUsers);
                         } else {
                             Toast.makeText(ViewProfile.this, "Error fetching following users", Toast.LENGTH_SHORT).show();
@@ -217,18 +214,18 @@ public class ViewProfile extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-            posts.clear();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            // check if user has posts in db
-            db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Post post = document.toObject(Post.class);
-                        posts.add(post);
-                    }
-                    updateOwnProfileAdapter();
+        posts.clear();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // check if user has posts in db
+        db.collection("Posts").whereEqualTo("user.username", currentUser.getUsername()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Post post = document.toObject(Post.class);
+                    posts.add(post);
                 }
-            });
-        }
-
+                updateOwnProfileAdapter();
+            }
+        });
     }
+
+}
