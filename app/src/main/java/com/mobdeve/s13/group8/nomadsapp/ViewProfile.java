@@ -226,6 +226,15 @@ public class ViewProfile extends AppCompatActivity {
                 updateOwnProfileAdapter();
             }
         });
+
+        // get currentuser from db
+        db.collection("Users").document(currentUser.getUsername()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User user = task.getResult().toObject(User.class);
+                currentUser = user;
+            }
+        });
+
     }
 
 }
