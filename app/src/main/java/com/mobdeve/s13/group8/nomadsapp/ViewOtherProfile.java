@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -162,6 +163,8 @@ public class ViewOtherProfile extends AppCompatActivity {
 
     private void loadUserData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Button followBtn = findViewById(R.id.followBtn);
+
 
         // Reload user data
         db.collection(MyFirestoreReferences.USERS_COLLECTION)
@@ -187,6 +190,15 @@ public class ViewOtherProfile extends AppCompatActivity {
                         // Update the otherUser object with the latest data
                         currentUser = documentSnapshot.toObject(User.class);
                         updateFollowerCount();
+
+                        if (currentUser.isFollowing(otherUser.getUsername())){
+                            followBtn.setText("Following");
+                            followBtn.setBackgroundColor(Color.parseColor("#818589"));
+                        }
+                        else{
+                            followBtn.setText("Follow");
+                            followBtn.setBackgroundColor(Color.parseColor("#657B9E"));
+                        }
                     }
                 })
                 .addOnFailureListener(e -> {
