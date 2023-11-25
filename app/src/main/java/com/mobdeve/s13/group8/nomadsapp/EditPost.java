@@ -124,7 +124,7 @@ public class EditPost extends AppCompatActivity {
                 location = viewBinding.locationEt.getText().toString();
                 body = viewBinding.bodyEt.getText().toString();
 
-                if (!caption.isEmpty() && !location.isEmpty() && !body.isEmpty()) {
+                if (!caption.isEmpty() && !location.isEmpty()) {
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
