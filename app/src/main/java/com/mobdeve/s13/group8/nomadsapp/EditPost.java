@@ -189,9 +189,10 @@ public class EditPost extends AppCompatActivity {
                             Log.e("EditPost", "Error deleting post to Firestore", e);
                             });
 
-                Intent intent = new Intent(EditPost.this, ViewProfile.class);
-                intent.putExtra("currentUser", currentUser);
-                startActivity(intent);
+                finish();
+                //Intent intent = new Intent(EditPost.this, ViewProfile.class);
+                //intent.putExtra("currentUser", currentUser);
+                //startActivity(intent);
             }
         });
 
