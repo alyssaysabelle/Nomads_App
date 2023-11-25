@@ -34,12 +34,12 @@ public class SearchUserAdapter extends RecyclerView.Adapter<SearchUsersViewHolde
             public void onClick(View v) {
                 if(user.get(position).getUsername().equals(currentUser.getUsername())) {
                     Intent intent = new Intent(v.getContext(), ViewProfile.class);
-                    intent.putExtra("currentUser", user.get(position));
+                    intent.putExtra("currentUser", currentUser);
                     intent.putExtra("otherUser", user.get(position));
                     v.getContext().startActivity(intent);
                 } else {
                     Intent intent = new Intent(v.getContext(), ViewOtherProfile.class);
-                    intent.putExtra("currentUser", user.get(position));
+                    intent.putExtra("currentUser", currentUser);
                     intent.putExtra("otherUser", user.get(position));
                     v.getContext().startActivity(intent);
                 }
