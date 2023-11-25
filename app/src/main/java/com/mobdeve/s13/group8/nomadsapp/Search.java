@@ -113,7 +113,8 @@ public class Search extends AppCompatActivity implements AdapterView.OnItemSelec
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Toast.makeText(Search.this, newText, Toast.LENGTH_SHORT).show();
+                posts.clear();
+                users.clear();
                 return false;
             }
         });
