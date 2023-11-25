@@ -153,6 +153,13 @@ public class ViewOtherProfile extends AppCompatActivity {
         loadUserData();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Reload user data and update follower count
+        loadUserData();
+    }
+
     private void loadUserData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -164,6 +171,21 @@ public class ViewOtherProfile extends AppCompatActivity {
                     if (documentSnapshot.exists()) {
                         // Update the otherUser object with the latest data
                         otherUser = documentSnapshot.toObject(User.class);
+                        updateFollowerCount();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle the failure to load user data
+                    Toast.makeText(ViewOtherProfile.this, "Error loading user data", Toast.LENGTH_SHORT).show();
+                });
+
+        db.collection(MyFirestoreReferences.USERS_COLLECTION)
+                .document(currentUser.getUsername())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Update the otherUser object with the latest data
+                        currentUser = documentSnapshot.toObject(User.class);
                         updateFollowerCount();
                     }
                 })
